@@ -1,0 +1,14 @@
+[project]
+name = "mslg-spa-2026"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "spacy>=3.7",
+    "sentence-transformers>=2.7",
+    "scikit-learn>=1.4",
+    "nltk>=3.8",
+    "requests>=2.31",
+    "numpy>=1.26",
+]

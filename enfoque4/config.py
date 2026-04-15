@@ -1,0 +1,35 @@
+"""Configuración local de enfoque4.
+
+Reexporta constantes de enfoque3 (el paquete __init__.py ya añadió enfoque3
+al sys.path) para garantizar que el split del dataset y los parámetros del
+modelo sean idénticos — de esa forma las métricas son directamente
+comparables con los resultados de enfoque3.
+"""
+
+import os
+
+import config as _e3_config  # enfoque3/config.py (vía sys.path)
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+RESULTS_DIR = os.path.join(BASE_DIR, "results")
+
+OLLAMA_MODEL = _e3_config.OLLAMA_MODEL
+OLLAMA_URL = _e3_config.OLLAMA_URL
+TEMPERATURE = _e3_config.TEMPERATURE
+MAX_TOKENS = _e3_config.MAX_TOKENS
+OLLAMA_TIMEOUT = _e3_config.OLLAMA_TIMEOUT
+OLLAMA_MAX_RETRIES = _e3_config.OLLAMA_MAX_RETRIES
+
+DATASET_PATH = _e3_config.DATASET_PATH
+TRAIN_SPLIT = _e3_config.TRAIN_SPLIT
+VAL_SPLIT = _e3_config.VAL_SPLIT
+RANDOM_SEED = _e3_config.RANDOM_SEED
+
+EMBEDDING_MODEL = _e3_config.EMBEDDING_MODEL
+
+SPACY_MODEL = "es_core_news_lg"
+
+EXPERIMENTS = [
+    {"name": "fol-rag-7",  "type": "fol_rag", "k": 7},
+    {"name": "fol-rag-10", "type": "fol_rag", "k": 10},
+]

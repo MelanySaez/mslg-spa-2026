@@ -1,0 +1,59 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# uv / packaging
+*.egg-info/
+*.egg
+build/
+dist/
+.eggs/
+
+# Pytest / coverage / mypy
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDEs / editores
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs / temporales
+*.log
+*.tmp
+
+# NLTK data (se descarga en runtime)
+nltk_data/
+
+# Modelos / caches de HuggingFace y SentenceTransformers
+.cache/
+transformers_cache/
+sentence_transformers_cache/
+
+# Secretos / entorno
+.env
+.env.*
+!.env.example
