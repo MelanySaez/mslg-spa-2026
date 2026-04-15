@@ -7,10 +7,17 @@ de enfoque3.
 Para cada oración de validación:
   1. rule_engine.generar_gloss_fol → candidato FOL.
   2. embedding_index.retrieve(k) → ejemplos semánticamente similares.
-  3. prompt_builder.build_fol_rag(spa, ejemplos, gloss_fol) → prompt.
+  3. Si el candidato FOL es degenerado (solo mayúsculas sin reglas
+     aplicadas) → fallback a prompt RAG puro de enfoque3 (build_rag).
+     Caso contrario → prompt FOL-RAG con candidato al final como pista
+     opcional (build_fol_rag).
   4. ollama_client.translate → respuesta cruda del LLM.
   5. post_processor.clean → glosa final.
   6. evaluator.evaluate → BLEU / METEOR / chrF.
+
+Cada fila del CSV de resultados incluye columna `mode` con el prompt
+usado (fol_rag | rag_fallback) y el JSON de métricas reporta cuántos
+fallbacks se activaron.
 """
 
 import csv
@@ -23,6 +30,7 @@ import embedding_index as emb_mod  # enfoque3
 import evaluator              # enfoque3
 import ollama_client          # enfoque3
 import post_processor         # enfoque3
+import prompt_builder as e3_pb  # enfoque3 (fallback a RAG puro)
 
 from . import config
 from . import prompt_builder as fol_prompts
@@ -39,6 +47,7 @@ def run_experiment(experiment, pool, val, emb_index, nlp, dicc_compuestos, nombr
 
     results = []
     start_time = time.time()
+    fallback_count = 0
 
     for i, par in enumerate(val):
         spa = par["spa"]
@@ -48,7 +57,14 @@ def run_experiment(experiment, pool, val, emb_index, nlp, dicc_compuestos, nombr
             spa, nlp, dicc_compuestos, nombres_personas
         )
         ejemplos = emb_index.retrieve(spa, k=k)
-        prompt = fol_prompts.build_fol_rag(spa, ejemplos, gloss_fol)
+
+        if rule_engine.es_fol_degenerado(gloss_fol, spa):
+            prompt = e3_pb.build_rag(spa, ejemplos)
+            mode = "rag_fallback"
+            fallback_count += 1
+        else:
+            prompt = fol_prompts.build_fol_rag(spa, ejemplos, gloss_fol)
+            mode = "fol_rag"
 
         raw_response = ollama_client.translate(prompt)
         mslg_pred = post_processor.clean(raw_response)
@@ -59,6 +75,7 @@ def run_experiment(experiment, pool, val, emb_index, nlp, dicc_compuestos, nombr
             "mslg_real": mslg_real,
             "mslg_pred": mslg_pred,
             "gloss_fol": gloss_fol,
+            "mode": mode,
             "raw_response": raw_response,
         })
 
@@ -68,19 +85,21 @@ def run_experiment(experiment, pool, val, emb_index, nlp, dicc_compuestos, nombr
         print(
             f"  [{exp_name}] {i + 1}/{len(val)} "
             f"({elapsed:.0f}s, ~{remaining:.0f}s restantes) | "
-            f"SPA: {spa[:50]}... | PRED: {mslg_pred[:60]}"
+            f"[{mode}] SPA: {spa[:45]}... | PRED: {mslg_pred[:55]}"
         )
 
     metrics = evaluator.evaluate(results)
 
     total_time = time.time() - start_time
+    fallback_ratio = fallback_count / len(val) if val else 0
     print(f"\n  === Resultados {exp_name} ({total_time:.1f}s) ===")
     print(f"  BLEU:   {metrics['bleu']:.4f}")
     print(f"  METEOR: {metrics['meteor']:.4f}")
     print(f"  chrF:   {metrics['chrf']:.4f}")
+    print(f"  Fallback a RAG puro: {fallback_count}/{len(val)} ({fallback_ratio:.1%})")
 
     _save_results_csv(results, exp_name)
-    _save_metrics_json(metrics, exp_name, total_time)
+    _save_metrics_json(metrics, exp_name, total_time, fallback_count, len(val))
 
     return results, metrics
 
@@ -118,17 +137,23 @@ def _save_results_csv(results, exp_name):
     with open(path, "w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(
             f,
-            fieldnames=["id", "spa", "mslg_real", "mslg_pred", "gloss_fol", "raw_response"],
+            fieldnames=["id", "spa", "mslg_real", "mslg_pred", "gloss_fol", "mode", "raw_response"],
         )
         writer.writeheader()
         writer.writerows(results)
     print(f"  Resultados guardados: {path}")
 
 
-def _save_metrics_json(metrics, exp_name, total_time):
+def _save_metrics_json(metrics, exp_name, total_time, fallback_count, total):
     os.makedirs(config.RESULTS_DIR, exist_ok=True)
     path = os.path.join(config.RESULTS_DIR, f"{exp_name}_metrics.json")
-    data = {**metrics, "experiment": exp_name, "total_time_seconds": round(total_time, 1)}
+    data = {
+        **metrics,
+        "experiment": exp_name,
+        "total_time_seconds": round(total_time, 1),
+        "fallback_count": fallback_count,
+        "fallback_ratio": round(fallback_count / total, 4) if total else 0,
+    }
     with open(path, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
     print(f"  Métricas guardadas:   {path}")

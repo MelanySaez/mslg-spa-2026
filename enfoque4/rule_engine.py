@@ -221,3 +221,41 @@ def generar_gloss_fol(oracion_spa, nlp, dicc_compuestos, nombres_personas):
         resultado.insert(-1, "MUCHO")
 
     return " ".join(resultado) if resultado else oracion_spa.upper()
+
+
+_MARCADORES_UP = {m.upper() for m in MARCADORES_TEMPORALES}
+
+
+def es_fol_degenerado(gloss_fol, oracion_spa):
+    """True si el candidato FOL no aportó señal útil y solo replicó la entrada.
+
+    Un FOL útil activa al menos una de estas señales:
+      - prefijo dm- (nombres propios)
+      - sufijo +MUJER (género femenino)
+      - token MUCHO (intensificador)
+      - token compuesto con guión (no dm-)
+      - marcador temporal movido al inicio
+      - reducción sensible de tokens (artículos/preposiciones/cópulas eliminados)
+
+    Si ninguna señal se activó, el candidato es pura mayúscula del SPA y
+    conviene hacer fallback a RAG puro para evitar sesgar al LLM.
+    """
+    tokens_fol = gloss_fol.split()
+    if not tokens_fol:
+        return True
+
+    tiene_dm = any(t.startswith("dm-") for t in tokens_fol)
+    tiene_mujer = any("+MUJER" in t for t in tokens_fol)
+    tiene_mucho = "MUCHO" in tokens_fol
+    tiene_compuesto = any("-" in t and not t.startswith("dm-") for t in tokens_fol)
+    tiene_temporal_inicio = tokens_fol[0] in _MARCADORES_UP
+
+    palabras_spa = [w for w in oracion_spa.split() if any(c.isalpha() for c in w)]
+    ratio_reduccion = 1 - (len(tokens_fol) / max(len(palabras_spa), 1))
+    tiene_reduccion = ratio_reduccion > 0.15
+
+    senales = (
+        tiene_dm or tiene_mujer or tiene_mucho or tiene_compuesto
+        or tiene_temporal_inicio or tiene_reduccion
+    )
+    return not senales
