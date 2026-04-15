@@ -1,0 +1,7 @@
+{
+  "bleu": 0.1801326159711333,
+  "meteor": 0.4949305339450858,
+  "chrf": 0.6493475588282949,
+  "experiment": "fol-rag-10",
+  "total_time_seconds": 92.1
+}
