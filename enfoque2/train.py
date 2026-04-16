@@ -21,9 +21,10 @@ def compute_metrics(eval_preds, tokenizer):
     if isinstance(preds, tuple):
         preds = preds[0]
 
+    preds = np.where(preds >= 0, preds, tokenizer.pad_token_id)
     labels = np.where(labels != -100, labels, tokenizer.pad_token_id)
-    decoded_preds = tokenizer.batch_decode(preds, skip_special_tokens=True)
-    decoded_labels = tokenizer.batch_decode(labels, skip_special_tokens=True)
+    decoded_preds = tokenizer.batch_decode(preds.tolist(), skip_special_tokens=True)
+    decoded_labels = tokenizer.batch_decode(labels.tolist(), skip_special_tokens=True)
 
     decoded_preds = [p.strip() for p in decoded_preds]
     decoded_labels = [l.strip() for l in decoded_labels]
