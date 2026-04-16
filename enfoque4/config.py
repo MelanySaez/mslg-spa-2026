@@ -29,7 +29,15 @@ EMBEDDING_MODEL = _e3_config.EMBEDDING_MODEL
 
 SPACY_MODEL = "es_core_news_lg"
 
+# Retrieval híbrido (BM25 + denso + cross-encoder rerank).
+RERANKER_MODEL = "cross-encoder/mmarco-mMiniLMv2-L12-H384-v1"
+RERANKER_ENABLED = True
+RETRIEVAL_CANDIDATES = 30   # top-N por cada ranker antes del RRF
+RERANK_POOL = 15            # candidatos reordenados por el cross-encoder
+LENGTH_TOLERANCE = 0.75     # |len(cand) - len(query)| / len(query) permitido
+
 EXPERIMENTS = [
-    {"name": "fol-rag-7",  "type": "fol_rag", "k": 7},
     {"name": "fol-rag-10", "type": "fol_rag", "k": 10},
+    {"name": "fol-rag-12", "type": "fol_rag", "k": 12},
+    {"name": "fol-rag-15", "type": "fol_rag", "k": 15},
 ]

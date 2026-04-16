@@ -67,6 +67,23 @@ NOMBRES_PERSONAS = {
     "luis", "jorge", "rosa", "elena", "miguel", "alejandro",
 }
 
+# Verbos con forma negativa supletiva según la gramática LSM
+# (Cruz Aldrete, 2008, §8.3). Cuando aparecen precedidos por "no" en el
+# español, la regla fusiona ambos tokens en una sola seña NO-VERBO en vez
+# de emitir NO + VERBO.
+IRREGULAR_NEG = {
+    "poder": "NO-PODER",
+    "haber": "NO-HABER",
+    "saber": "NO-SABER",
+    "conocer": "NO-CONOCER",
+    "gustar": "NO-GUSTAR",
+    "querer": "NO-QUERER",
+    "hacer": "NO-HACER",
+    "servir": "NO-SERVIR",
+    "usar": "NO-USAR",
+    "ver": "NO-VER",
+}
+
 
 def cargar_nlp(model_name="es_core_news_lg"):
     """Carga modelo spaCy. Descarga explícita si falta para dar error claro."""
@@ -145,6 +162,21 @@ def generar_gloss_fol(oracion_spa, nlp, dicc_compuestos, nombres_personas):
             continue
 
         texto_tok = token.text.lower()
+
+        if texto_tok == "no":
+            j = i + 1
+            while j < len(tokens_spacy) and tokens_spacy[j].is_punct:
+                j += 1
+            if j < len(tokens_spacy):
+                next_tok = tokens_spacy[j]
+                next_lemma = next_tok.lemma_.lower()
+                if next_tok.pos_ in ("VERB", "AUX") and next_lemma in IRREGULAR_NEG:
+                    tokens_salida.append(IRREGULAR_NEG[next_lemma])
+                    i = j + 1
+                    continue
+            tokens_salida.append("NO")
+            i += 1
+            continue
 
         if token.pos_ == "DET" and texto_tok in STOPWORDS_MSLG:
             i += 1

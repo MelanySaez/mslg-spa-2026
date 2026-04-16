@@ -1,22 +1,24 @@
 """Orquestador independiente de enfoque4.
 
-Solo ejecuta las configuraciones FOL-RAG-7 y FOL-RAG-10. Reusa la KB
-(EmbeddingIndex), el cliente Ollama, el post-procesador y el evaluador
-de enfoque3.
+Ejecuta las configuraciones FOL-RAG con retrieval híbrido (BM25 + denso
++ cross-encoder rerank) y prompt enriquecido con reglas de sintaxis LSM.
+Reusa `data_loader`, `ollama_client`, `post_processor` y `evaluator` de
+enfoque3.
 
 Para cada oración de validación:
-  1. rule_engine.generar_gloss_fol → candidato FOL.
-  2. embedding_index.retrieve(k) → ejemplos semánticamente similares.
-  3. Si el candidato FOL es degenerado (solo mayúsculas sin reglas
-     aplicadas) → fallback a prompt RAG puro de enfoque3 (build_rag).
-     Caso contrario → prompt FOL-RAG con candidato al final como pista
-     opcional (build_fol_rag).
+  1. rule_engine.generar_gloss_fol → candidato FOL (incluye negación
+     irregular: NO-PODER, NO-HABER, etc.).
+  2. hybrid_index.retrieve(k) → fusión BM25+denso (RRF), filtro por
+     longitud y rerank cross-encoder → top-k ejemplos.
+  3. Si el candidato FOL es degenerado (sin señal útil) → fallback al
+     prompt RAG enriquecido. Caso contrario → prompt FOL-RAG con el
+     candidato al final como pista opcional.
   4. ollama_client.translate → respuesta cruda del LLM.
   5. post_processor.clean → glosa final.
   6. evaluator.evaluate → BLEU / METEOR / chrF.
 
-Cada fila del CSV de resultados incluye columna `mode` con el prompt
-usado (fol_rag | rag_fallback) y el JSON de métricas reporta cuántos
+Cada fila del CSV de resultados incluye la columna `mode`
+(fol_rag | rag_fallback) y el JSON de métricas reporta cuántos
 fallbacks se activaron.
 """
 
@@ -26,13 +28,12 @@ import os
 import time
 
 import data_loader            # enfoque3
-import embedding_index as emb_mod  # enfoque3
 import evaluator              # enfoque3
 import ollama_client          # enfoque3
 import post_processor         # enfoque3
-import prompt_builder as e3_pb  # enfoque3 (fallback a RAG puro)
 
 from . import config
+from . import hybrid_index
 from . import prompt_builder as fol_prompts
 from . import rule_engine
 
@@ -59,7 +60,7 @@ def run_experiment(experiment, pool, val, emb_index, nlp, dicc_compuestos, nombr
         ejemplos = emb_index.retrieve(spa, k=k)
 
         if rule_engine.es_fol_degenerado(gloss_fol, spa):
-            prompt = e3_pb.build_rag(spa, ejemplos)
+            prompt = fol_prompts.build_rag_enriched(spa, ejemplos)
             mode = "rag_fallback"
             fallback_count += 1
         else:
@@ -116,7 +117,7 @@ def run_all(experiments=None):
     print(f"  Diccionario de compuestos: {len(dicc_compuestos)} entradas")
     print(f"  Nombres de personas:       {len(nombres_personas)} entradas")
 
-    emb_index = emb_mod.EmbeddingIndex(pool)
+    emb_index = hybrid_index.HybridIndex(pool)
 
     summary = []
     for experiment in experiments:

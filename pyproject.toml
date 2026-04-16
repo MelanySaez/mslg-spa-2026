@@ -11,4 +11,5 @@ dependencies = [
     "nltk>=3.8",
     "requests>=2.31",
     "numpy>=1.26",
+    "rank-bm25>=0.2.2",
 ]
