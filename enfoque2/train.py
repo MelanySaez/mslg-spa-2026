@@ -70,7 +70,7 @@ def main():
         per_device_eval_batch_size=config.BATCH_SIZE,
         learning_rate=config.LEARNING_RATE,
         weight_decay=config.WEIGHT_DECAY,
-        warmup_ratio=config.WARMUP_RATIO,
+        warmup_steps=int(config.WARMUP_RATIO * config.EPOCHS * (config.TRAIN_SPLIT // config.BATCH_SIZE)),
         fp16=config.FP16,
         eval_strategy=config.EVAL_STRATEGY,
         save_strategy=config.SAVE_STRATEGY,
@@ -89,7 +89,7 @@ def main():
         args=training_args,
         train_dataset=train_dataset,
         eval_dataset=val_dataset,
-        tokenizer=tokenizer,
+        processing_class=tokenizer,
         data_collator=data_collator,
         compute_metrics=lambda ep: compute_metrics(ep, tokenizer),
     )
