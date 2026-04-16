@@ -1,12 +1,13 @@
 """Fine-tuning de bart-base-spanish para traducción SPA→MSLG."""
 
 import os
+from collections import Counter
 
 import numpy as np
-import sacrebleu
 from transformers import (
     AutoModelForSeq2SeqLM,
     AutoTokenizer,
+    EarlyStoppingCallback,
     Seq2SeqTrainer,
     Seq2SeqTrainingArguments,
     DataCollatorForSeq2Seq,
@@ -14,6 +15,20 @@ from transformers import (
 
 from enfoque2 import config
 from enfoque2.data_loader import cargar_dataset, split_train_val, MSLGDataset
+
+
+def _ngram_precision(pred_tokens, ref_tokens, n):
+    """Calcula precisión de n-gramas (clipped) para un par pred/ref."""
+    pred_ngrams = [tuple(pred_tokens[i:i+n]) for i in range(len(pred_tokens) - n + 1)]
+    ref_ngrams = [tuple(ref_tokens[i:i+n]) for i in range(len(ref_tokens) - n + 1)]
+    if not pred_ngrams:
+        return 0.0
+    ref_counts = Counter(ref_ngrams)
+    clipped = 0
+    pred_counts = Counter(pred_ngrams)
+    for ng, count in pred_counts.items():
+        clipped += min(count, ref_counts.get(ng, 0))
+    return clipped / len(pred_ngrams)
 
 
 def compute_metrics(eval_preds, tokenizer):
@@ -29,13 +44,19 @@ def compute_metrics(eval_preds, tokenizer):
     decoded_preds = [p.strip() for p in decoded_preds]
     decoded_labels = [l.strip() for l in decoded_labels]
 
-    bleu = sacrebleu.corpus_bleu(decoded_preds, [decoded_labels])
-    chrf = sacrebleu.corpus_chrf(decoded_preds, [decoded_labels])
+    bleu_scores = {1: [], 2: [], 3: [], 4: []}
+    for pred, ref in zip(decoded_preds, decoded_labels):
+        pred_tok = pred.split()
+        ref_tok = ref.split()
+        for n in range(1, 5):
+            bleu_scores[n].append(_ngram_precision(pred_tok, ref_tok, n))
 
-    return {
-        "bleu": round(bleu.score, 4),
-        "chrf": round(chrf.score, 4),
-    }
+    results = {}
+    for n in range(1, 5):
+        scores = bleu_scores[n]
+        results[f"bleu_{n}"] = round(sum(scores) / len(scores), 4) if scores else 0.0
+
+    return results
 
 
 def main():
@@ -54,10 +75,12 @@ def main():
     print(f"  Train: {len(train_pares)} | Val: {len(val_pares)}")
 
     train_dataset = MSLGDataset(
-        train_pares, tokenizer, config.MAX_SOURCE_LEN, config.MAX_TARGET_LEN
+        train_pares, tokenizer, config.MAX_SOURCE_LEN, config.MAX_TARGET_LEN,
+        task_prefix=config.TASK_PREFIX,
     )
     val_dataset = MSLGDataset(
-        val_pares, tokenizer, config.MAX_SOURCE_LEN, config.MAX_TARGET_LEN
+        val_pares, tokenizer, config.MAX_SOURCE_LEN, config.MAX_TARGET_LEN,
+        task_prefix=config.TASK_PREFIX,
     )
 
     data_collator = DataCollatorForSeq2Seq(
@@ -71,6 +94,8 @@ def main():
         per_device_eval_batch_size=config.EVAL_BATCH_SIZE,
         learning_rate=config.LEARNING_RATE,
         weight_decay=config.WEIGHT_DECAY,
+        label_smoothing_factor=config.LABEL_SMOOTHING,
+        warmup_steps=config.WARMUP_STEPS,
         fp16=config.FP16,
         optim=config.OPTIM,
         lr_scheduler_type=config.LR_SCHEDULER,
@@ -81,6 +106,7 @@ def main():
         greater_is_better=True,
         predict_with_generate=True,
         generation_max_length=config.MAX_TARGET_LEN,
+        generation_num_beams=config.NUM_BEAMS,
         save_total_limit=3,
         logging_steps=10,
         report_to="none",
@@ -94,6 +120,7 @@ def main():
         processing_class=tokenizer,
         data_collator=data_collator,
         compute_metrics=lambda ep: compute_metrics(ep, tokenizer),
+        callbacks=[EarlyStoppingCallback(early_stopping_patience=config.EARLY_STOPPING_PATIENCE)],
     )
 
     print("\nIniciando fine-tuning...")

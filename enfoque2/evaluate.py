@@ -1,6 +1,7 @@
-"""Evaluación del modelo fine-tuned: genera predicciones + métricas BLEU/chrF/METEOR."""
+"""Evaluación del modelo fine-tuned: genera predicciones + métricas BLEU n-gram/chrF/METEOR."""
 
 import os
+from collections import Counter
 
 import sacrebleu
 import nltk
@@ -18,7 +19,7 @@ def generar_predicciones(model, tokenizer, pares):
     predicciones = []
     for par in pares:
         inputs = tokenizer(
-            par["spa"],
+            config.TASK_PREFIX + par["spa"],
             max_length=config.MAX_SOURCE_LEN,
             truncation=True,
             return_tensors="pt",
@@ -27,7 +28,9 @@ def generar_predicciones(model, tokenizer, pares):
         output_ids = model.generate(
             **inputs,
             max_length=config.MAX_TARGET_LEN,
-            num_beams=4,
+            num_beams=config.NUM_BEAMS,
+            no_repeat_ngram_size=config.NO_REPEAT_NGRAM_SIZE,
+            length_penalty=config.LENGTH_PENALTY,
             early_stopping=True,
         )
         pred = tokenizer.decode(output_ids[0], skip_special_tokens=True)
@@ -35,21 +38,45 @@ def generar_predicciones(model, tokenizer, pares):
     return predicciones
 
 
+def _ngram_precision(pred_tokens, ref_tokens, n):
+    pred_ngrams = [tuple(pred_tokens[i:i+n]) for i in range(len(pred_tokens) - n + 1)]
+    ref_ngrams = [tuple(ref_tokens[i:i+n]) for i in range(len(ref_tokens) - n + 1)]
+    if not pred_ngrams:
+        return 0.0
+    ref_counts = Counter(ref_ngrams)
+    clipped = 0
+    pred_counts = Counter(pred_ngrams)
+    for ng, count in pred_counts.items():
+        clipped += min(count, ref_counts.get(ng, 0))
+    return clipped / len(pred_ngrams)
+
+
 def evaluar(predicciones, referencias):
     bleu = sacrebleu.corpus_bleu(predicciones, [referencias])
     chrf = sacrebleu.corpus_chrf(predicciones, [referencias])
 
+    bleu_scores = {1: [], 2: [], 3: [], 4: []}
     meteor_scores = []
     for pred, ref in zip(predicciones, referencias):
-        score = meteor_score([ref.split()], pred.split())
+        pred_tok = pred.split()
+        ref_tok = ref.split()
+        for n in range(1, 5):
+            bleu_scores[n].append(_ngram_precision(pred_tok, ref_tok, n))
+        score = meteor_score([ref_tok], pred_tok)
         meteor_scores.append(score)
+
     meteor_avg = sum(meteor_scores) / len(meteor_scores) if meteor_scores else 0.0
 
-    return {
-        "BLEU": round(bleu.score, 4),
+    results = {
+        "BLEU_corpus": round(bleu.score, 4),
         "chrF": round(chrf.score, 4),
         "METEOR": round(meteor_avg * 100, 4),
     }
+    for n in range(1, 5):
+        scores = bleu_scores[n]
+        results[f"BLEU_{n}"] = round(sum(scores) / len(scores), 4) if scores else 0.0
+
+    return results
 
 
 def main():
@@ -81,7 +108,7 @@ def main():
 
     print("── Métricas (SPA→MSLG) ──")
     metricas = evaluar(predicciones, referencias)
-    for k, v in metricas.items():
+    for k, v in sorted(metricas.items()):
         print(f"  {k}: {v}")
 
     results_path = os.path.join(config.RESULTS_DIR, "predicciones_val.tsv")

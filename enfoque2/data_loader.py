@@ -29,11 +29,13 @@ def split_train_val(pares, train_n=400, seed=42):
 class MSLGDataset(Dataset):
     """Dataset seq2seq: input=SPA, target=MSLG."""
 
-    def __init__(self, pares, tokenizer, max_source_len, max_target_len):
+    def __init__(self, pares, tokenizer, max_source_len, max_target_len,
+                 task_prefix=""):
         self.pares = pares
         self.tokenizer = tokenizer
         self.max_source_len = max_source_len
         self.max_target_len = max_target_len
+        self.task_prefix = task_prefix
 
     def __len__(self):
         return len(self.pares)
@@ -41,16 +43,14 @@ class MSLGDataset(Dataset):
     def __getitem__(self, idx):
         par = self.pares[idx]
         source = self.tokenizer(
-            par["spa"],
+            self.task_prefix + par["spa"],
             max_length=self.max_source_len,
-            padding="max_length",
             truncation=True,
             return_tensors="pt",
         )
         target = self.tokenizer(
             par["mslg"],
             max_length=self.max_target_len,
-            padding="max_length",
             truncation=True,
             return_tensors="pt",
         )
