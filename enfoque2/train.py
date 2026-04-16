@@ -92,6 +92,7 @@ def main():
         num_train_epochs=config.EPOCHS,
         per_device_train_batch_size=config.TRAIN_BATCH_SIZE,
         per_device_eval_batch_size=config.EVAL_BATCH_SIZE,
+        gradient_accumulation_steps=config.GRADIENT_ACCUMULATION_STEPS,
         learning_rate=config.LEARNING_RATE,
         weight_decay=config.WEIGHT_DECAY,
         label_smoothing_factor=config.LABEL_SMOOTHING,
