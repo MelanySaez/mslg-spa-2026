@@ -16,4 +16,8 @@ dependencies = [
     "torch>=2.2",
     "sacrebleu>=2.4",
     "accelerate>=0.30",
+    "pandas>=3.0.2",
+    "datasets>=4.8.4",
+    "evaluate>=0.4.6",
+    "rouge-score>=0.1.2",
 ]
