@@ -1,14 +1,16 @@
 """Evaluación enfoque5. Reutiliza métricas de enfoque2."""
 
+import argparse
 import os
 
 from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
 
 from enfoque5 import config
 from enfoque2.data_loader import cargar_dataset, split_train_val
-from enfoque2.evaluate import generar_predicciones as _gen_pred_e2, evaluar, _ngram_precision
+from enfoque2.evaluate import evaluar
 
 import nltk
+
 nltk.download("wordnet", quiet=True)
 nltk.download("omw-1.4", quiet=True)
 
@@ -37,9 +39,20 @@ def generar_predicciones(model, tokenizer, pares):
     return predicciones
 
 
+def parse_args():
+    parser = argparse.ArgumentParser(description="Evalúa un modelo de enfoque5")
+    parser.add_argument("--output-dir", default=config.OUTPUT_DIR)
+    parser.add_argument(
+        "--results-path",
+        default=os.path.join(config.RESULTS_DIR, "predicciones_val.tsv"),
+    )
+    return parser.parse_args()
+
+
 def main():
-    os.makedirs(config.RESULTS_DIR, exist_ok=True)
-    model_path = os.path.join(config.OUTPUT_DIR, "best")
+    args = parse_args()
+    os.makedirs(os.path.dirname(args.results_path), exist_ok=True)
+    model_path = os.path.join(args.output_dir, "best")
 
     print(f"Cargando modelo desde {model_path}")
     tokenizer = AutoTokenizer.from_pretrained(model_path)
@@ -70,7 +83,7 @@ def main():
     for k, v in sorted(metricas.items()):
         print(f"  {k}: {v}")
 
-    results_path = os.path.join(config.RESULTS_DIR, "predicciones_val.tsv")
+    results_path = args.results_path
     with open(results_path, "w", encoding="utf-8") as f:
         f.write("ID\tSPA\tREF_MSLG\tPRED_MSLG\n")
         for par, pred in zip(val_pares, predicciones):

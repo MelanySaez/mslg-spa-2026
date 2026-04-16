@@ -6,6 +6,7 @@ Uso:
 Genera enfoque5/data/augmented_train.txt con pares originales + sintéticos.
 """
 
+import argparse
 import csv
 import os
 import random
@@ -14,7 +15,12 @@ import sys
 import spacy
 
 # Importar motor de reglas de enfoque1
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "enfoque1"))
+sys.path.insert(
+    0,
+    os.path.join(
+        os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "enfoque1"
+    ),
+)
 from codigo import (
     aplicar_reglas_spa_a_mslg,
     construir_diccionario_compuestos,
@@ -29,11 +35,13 @@ def cargar_dataset(ruta_tsv: str):
     with open(ruta_tsv, encoding="utf-8") as f:
         reader = csv.DictReader(f, delimiter="\t")
         for fila in reader:
-            pares.append({
-                "id": fila["ID"].strip(),
-                "mslg": fila["MSLG"].strip(),
-                "spa": fila["SPA"].strip(),
-            })
+            pares.append(
+                {
+                    "id": fila["ID"].strip(),
+                    "mslg": fila["MSLG"].strip(),
+                    "spa": fila["SPA"].strip(),
+                }
+            )
     return pares
 
 
@@ -45,6 +53,7 @@ def split_train_val(pares, train_n=400, seed=42):
 
 
 # ── Augmentaciones sobre texto SPA ──
+
 
 def word_dropout(texto, prob):
     """Elimina palabras al azar con probabilidad `prob`."""
@@ -78,14 +87,28 @@ def augmentar_spa(texto, n_variaciones, drop_prob, swap_prob):
     return variaciones
 
 
+def parse_args():
+    parser = argparse.ArgumentParser(description="Genera dataset augmentado SPA->MSLG")
+    parser.add_argument("--output-path", default=config.AUGMENTED_DATASET)
+    parser.add_argument("--train-split", type=int, default=config.TRAIN_SPLIT)
+    parser.add_argument("--seed", type=int, default=config.RANDOM_SEED)
+    parser.add_argument(
+        "--variations", type=int, default=config.AUGMENTATIONS_PER_SAMPLE
+    )
+    parser.add_argument("--drop-prob", type=float, default=config.WORD_DROP_PROB)
+    parser.add_argument("--swap-prob", type=float, default=config.WORD_SWAP_PROB)
+    return parser.parse_args()
+
+
 def main():
+    args = parse_args()
     os.makedirs(config.DATA_DIR, exist_ok=True)
-    random.seed(config.RANDOM_SEED)
+    random.seed(args.seed)
 
     print("Cargando dataset original...")
     pares = cargar_dataset(config.ORIGINAL_DATASET)
     train_pares, val_pares = split_train_val(
-        pares, train_n=config.TRAIN_SPLIT, seed=config.RANDOM_SEED
+        pares, train_n=args.train_split, seed=args.seed
     )
     print(f"  Original: {len(train_pares)} train | {len(val_pares)} val")
 
@@ -98,27 +121,29 @@ def main():
     print(f"  {len(dicc_compuestos)} compuestos | {len(nombres_personas)} nombres")
 
     # ── Generar pares augmentados ──
-    print(f"\nGenerando {config.AUGMENTATIONS_PER_SAMPLE} variaciones por muestra...")
+    print(f"\nGenerando {args.variations} variaciones por muestra...")
     pares_augmentados = []
     aug_id = 0
 
     for par in train_pares:
         variaciones = augmentar_spa(
             par["spa"],
-            config.AUGMENTATIONS_PER_SAMPLE,
-            config.WORD_DROP_PROB,
-            config.WORD_SWAP_PROB,
+            args.variations,
+            args.drop_prob,
+            args.swap_prob,
         )
         for var_spa in variaciones:
             mslg_sintetico = aplicar_reglas_spa_a_mslg(
                 var_spa, nlp, dicc_compuestos, nombres_personas
             )
             if mslg_sintetico and len(mslg_sintetico.split()) >= 2:
-                pares_augmentados.append({
-                    "id": f"AUG{aug_id:04d}",
-                    "mslg": mslg_sintetico,
-                    "spa": var_spa,
-                })
+                pares_augmentados.append(
+                    {
+                        "id": f"AUG{aug_id:04d}",
+                        "mslg": mslg_sintetico,
+                        "spa": var_spa,
+                    }
+                )
                 aug_id += 1
 
     print(f"  Pares sintéticos generados: {len(pares_augmentados)}")
@@ -128,7 +153,8 @@ def main():
     random.shuffle(todos)
 
     # ── Guardar dataset augmentado (train + val al final) ──
-    output_path = config.AUGMENTED_DATASET
+    output_path = args.output_path
+    os.makedirs(os.path.dirname(output_path), exist_ok=True)
     with open(output_path, "w", encoding="utf-8") as f:
         f.write("ID\tMSLG\tSPA\n")
         for par in todos:
@@ -138,7 +164,9 @@ def main():
 
     total_train = len(todos)
     print(f"\nDataset augmentado guardado: {output_path}")
-    print(f"  Train: {total_train} ({len(train_pares)} gold + {len(pares_augmentados)} sintéticos)")
+    print(
+        f"  Train: {total_train} ({len(train_pares)} gold + {len(pares_augmentados)} sintéticos)"
+    )
     print(f"  Val: {len(val_pares)} (gold, sin augmentar)")
 
 

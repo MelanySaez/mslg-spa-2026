@@ -1,5 +1,6 @@
 """Fine-tuning con datos augmentados. Reutiliza lógica de enfoque2."""
 
+import argparse
 import os
 
 import numpy as np
@@ -20,23 +21,36 @@ from enfoque2.train import compute_metrics, _ngram_precision
 def cargar_augmented(ruta_tsv, train_n):
     """Carga dataset augmentado. Train = primeros train_n, val = resto."""
     import csv
+
     pares = []
     with open(ruta_tsv, encoding="utf-8") as f:
         reader = csv.DictReader(f, delimiter="\t")
         for fila in reader:
-            pares.append({
-                "id": fila["ID"].strip(),
-                "mslg": fila["MSLG"].strip(),
-                "spa": fila["SPA"].strip(),
-            })
+            pares.append(
+                {
+                    "id": fila["ID"].strip(),
+                    "mslg": fila["MSLG"].strip(),
+                    "spa": fila["SPA"].strip(),
+                }
+            )
     return pares[:train_n], pares[train_n:]
 
 
-def main():
-    os.makedirs(config.RESULTS_DIR, exist_ok=True)
-    os.makedirs(config.OUTPUT_DIR, exist_ok=True)
+def parse_args():
+    parser = argparse.ArgumentParser(
+        description="Entrena SPA->MSLG con dataset augmentado"
+    )
+    parser.add_argument("--dataset-path", default=config.AUGMENTED_DATASET)
+    parser.add_argument("--output-dir", default=config.OUTPUT_DIR)
+    return parser.parse_args()
 
-    if not os.path.exists(config.AUGMENTED_DATASET):
+
+def main():
+    args = parse_args()
+    os.makedirs(config.RESULTS_DIR, exist_ok=True)
+    os.makedirs(args.output_dir, exist_ok=True)
+
+    if not os.path.exists(args.dataset_path):
         print("Dataset augmentado no encontrado. Ejecuta primero:")
         print("  python -m enfoque5.augment")
         return
@@ -46,20 +60,26 @@ def main():
     model = AutoModelForSeq2SeqLM.from_pretrained(config.MODEL_NAME)
 
     # Contar líneas para saber cuántas son train
-    with open(config.AUGMENTED_DATASET, encoding="utf-8") as f:
+    with open(args.dataset_path, encoding="utf-8") as f:
         total_lines = sum(1 for _ in f) - 1  # sin header
     train_n = total_lines - config.VAL_SPLIT
 
-    print(f"Cargando dataset augmentado: {config.AUGMENTED_DATASET}")
-    train_pares, val_pares = cargar_augmented(config.AUGMENTED_DATASET, train_n)
+    print(f"Cargando dataset augmentado: {args.dataset_path}")
+    train_pares, val_pares = cargar_augmented(args.dataset_path, train_n)
     print(f"  Train: {len(train_pares)} | Val: {len(val_pares)}")
 
     train_dataset = MSLGDataset(
-        train_pares, tokenizer, config.MAX_SOURCE_LEN, config.MAX_TARGET_LEN,
+        train_pares,
+        tokenizer,
+        config.MAX_SOURCE_LEN,
+        config.MAX_TARGET_LEN,
         task_prefix=config.TASK_PREFIX,
     )
     val_dataset = MSLGDataset(
-        val_pares, tokenizer, config.MAX_SOURCE_LEN, config.MAX_TARGET_LEN,
+        val_pares,
+        tokenizer,
+        config.MAX_SOURCE_LEN,
+        config.MAX_TARGET_LEN,
         task_prefix=config.TASK_PREFIX,
     )
 
@@ -68,7 +88,7 @@ def main():
     )
 
     training_args = Seq2SeqTrainingArguments(
-        output_dir=config.OUTPUT_DIR,
+        output_dir=args.output_dir,
         num_train_epochs=config.EPOCHS,
         per_device_train_batch_size=config.TRAIN_BATCH_SIZE,
         per_device_eval_batch_size=config.EVAL_BATCH_SIZE,
@@ -101,14 +121,18 @@ def main():
         processing_class=tokenizer,
         data_collator=data_collator,
         compute_metrics=lambda ep: compute_metrics(ep, tokenizer),
-        callbacks=[EarlyStoppingCallback(early_stopping_patience=config.EARLY_STOPPING_PATIENCE)],
+        callbacks=[
+            EarlyStoppingCallback(
+                early_stopping_patience=config.EARLY_STOPPING_PATIENCE
+            )
+        ],
     )
 
     print(f"\nIniciando fine-tuning ({len(train_pares)} muestras)...")
     trainer.train()
 
     print("\nGuardando mejor modelo...")
-    best_dir = os.path.join(config.OUTPUT_DIR, "best")
+    best_dir = os.path.join(args.output_dir, "best")
     trainer.save_model(best_dir)
     tokenizer.save_pretrained(best_dir)
     print(f"Modelo guardado en {best_dir}")
