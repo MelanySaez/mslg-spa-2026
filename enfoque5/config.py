@@ -17,9 +17,15 @@ RANDOM_SEED = 42
 
 # ── Augmentación ──
 AUGMENTATIONS_PER_SAMPLE = 4     # variaciones por oración original
-WORD_DROP_PROB = 0.15            # prob de eliminar cada palabra
 WORD_SWAP_PROB = 0.10            # prob de swap con palabra adyacente
 SPACY_MODEL = "es_core_news_lg"
+
+# ── Curriculum ──
+GOLD_UPSAMPLE_FACTOR = 3         # replica gold ×N durante pretrain para compensar silver
+FINETUNE_EPOCHS = 50
+FINETUNE_LEARNING_RATE = 1e-5
+FINETUNE_WARMUP_STEPS = 30
+FINETUNE_EARLY_STOPPING_PATIENCE = 10
 
 # ── Modelo (mismo que enfoque2) ──
 MODEL_NAME = "vgaraujov/bart-base-spanish"

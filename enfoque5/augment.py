@@ -55,15 +55,6 @@ def split_train_val(pares, train_n=400, seed=42):
 # ── Augmentaciones sobre texto SPA ──
 
 
-def word_dropout(texto, prob):
-    """Elimina palabras al azar con probabilidad `prob`."""
-    palabras = texto.split()
-    if len(palabras) <= 2:
-        return texto
-    resultado = [w for w in palabras if random.random() > prob]
-    return " ".join(resultado) if resultado else texto
-
-
 def word_swap(texto, prob):
     """Intercambia pares de palabras adyacentes con probabilidad `prob`."""
     palabras = texto.split()
@@ -73,15 +64,11 @@ def word_swap(texto, prob):
     return " ".join(palabras)
 
 
-def augmentar_spa(texto, n_variaciones, drop_prob, swap_prob):
-    """Genera `n_variaciones` de una oración SPA."""
+def augmentar_spa(texto, n_variaciones, swap_prob):
+    """Genera `n_variaciones` de una oración SPA vía word_swap."""
     variaciones = []
     for _ in range(n_variaciones):
-        t = texto
-        if random.random() < 0.5:
-            t = word_dropout(t, drop_prob)
-        if random.random() < 0.5:
-            t = word_swap(t, swap_prob)
+        t = word_swap(texto, swap_prob)
         if t != texto:
             variaciones.append(t)
     return variaciones
@@ -95,7 +82,6 @@ def parse_args():
     parser.add_argument(
         "--variations", type=int, default=config.AUGMENTATIONS_PER_SAMPLE
     )
-    parser.add_argument("--drop-prob", type=float, default=config.WORD_DROP_PROB)
     parser.add_argument("--swap-prob", type=float, default=config.WORD_SWAP_PROB)
     return parser.parse_args()
 
@@ -129,7 +115,6 @@ def main():
         variaciones = augmentar_spa(
             par["spa"],
             args.variations,
-            args.drop_prob,
             args.swap_prob,
         )
         for var_spa in variaciones:
