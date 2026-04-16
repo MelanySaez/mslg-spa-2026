@@ -34,16 +34,18 @@ import post_processor         # enfoque3
 
 from . import config
 from . import hybrid_index
+from . import lsm_postprocessor
 from . import prompt_builder as fol_prompts
 from . import rule_engine
 
 
 def run_experiment(experiment, pool, val, emb_index, nlp, dicc_compuestos, nombres_personas):
     exp_name = experiment["name"]
+    exp_type = experiment.get("type", "fol_rag")
     k = experiment["k"]
 
     print(f"\n{'=' * 60}")
-    print(f"  Experimento: {exp_name} (tipo=fol_rag, k={k})")
+    print(f"  Experimento: {exp_name} (tipo={exp_type}, k={k})")
     print(f"{'=' * 60}")
 
     results = []
@@ -54,21 +56,27 @@ def run_experiment(experiment, pool, val, emb_index, nlp, dicc_compuestos, nombr
         spa = par["spa"]
         mslg_real = par["mslg"]
 
-        gloss_fol = rule_engine.generar_gloss_fol(
-            spa, nlp, dicc_compuestos, nombres_personas
-        )
         ejemplos = emb_index.retrieve(spa, k=k)
 
-        if rule_engine.es_fol_degenerado(gloss_fol, spa):
+        if exp_type == "enriched_rag":
             prompt = fol_prompts.build_rag_enriched(spa, ejemplos)
-            mode = "rag_fallback"
-            fallback_count += 1
+            gloss_fol = ""
+            mode = "enriched_rag"
         else:
-            prompt = fol_prompts.build_fol_rag(spa, ejemplos, gloss_fol)
-            mode = "fol_rag"
+            gloss_fol = rule_engine.generar_gloss_fol(
+                spa, nlp, dicc_compuestos, nombres_personas
+            )
+            if rule_engine.es_fol_degenerado(gloss_fol, spa):
+                prompt = fol_prompts.build_rag_enriched(spa, ejemplos)
+                mode = "rag_fallback"
+                fallback_count += 1
+            else:
+                prompt = fol_prompts.build_fol_rag(spa, ejemplos, gloss_fol)
+                mode = "fol_rag"
 
         raw_response = ollama_client.translate(prompt)
-        mslg_pred = post_processor.clean(raw_response)
+        mslg_clean = post_processor.clean(raw_response)
+        mslg_pred = lsm_postprocessor.postprocess(mslg_clean, spa, nlp)
 
         results.append({
             "id": par["id"],

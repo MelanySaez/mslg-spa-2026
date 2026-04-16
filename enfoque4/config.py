@@ -37,7 +37,6 @@ RERANK_POOL = 15            # candidatos reordenados por el cross-encoder
 LENGTH_TOLERANCE = 0.75     # |len(cand) - len(query)| / len(query) permitido
 
 EXPERIMENTS = [
-    {"name": "fol-rag-10", "type": "fol_rag", "k": 10},
-    {"name": "fol-rag-12", "type": "fol_rag", "k": 12},
-    {"name": "fol-rag-15", "type": "fol_rag", "k": 15},
+    {"name": "fol-rag-10",      "type": "fol_rag",      "k": 10},
+    {"name": "enriched-rag-10", "type": "enriched_rag",  "k": 10},
 ]
