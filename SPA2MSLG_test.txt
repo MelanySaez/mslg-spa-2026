@@ -1,0 +1,246 @@
+ID	SPA
+476	Esa marca es excelente.
+707	El gobernador apoyó la construcción de una escuela para alumnos sordos.
+443	Javier es mi concuño.
+665	Yo compré una camisa elegante.
+661	El bikini es azul.
+115	Debemos comparar antes de elegir.
+59	Ángela le gusta el ballet desde niña
+582	El joven es hábil en el kayak.
+447	Mi consuegro horneó un pastel.
+960	Las personas sordas alaban a San Judas.
+30	Ana es muy amable.
+794	Necesito un taladro para poder arreglarlo.
+126	Es muy difícil convencer a mi maestra.
+654	En Tepito hay muchos asaltos.
+25	¡Aléjate! Estoy enojada.
+327	Mi cuñada tiene su cabello chino.
+169	Me pegué en la frente.
+2	Muy bien, ¿qué onda?
+921	Mi madrina hierve frijoles diario.
+957	Tú siempre dices pretextos.
+209	Mi casa es la número 10.
+709	Espero que goce en las manos de Dios.
+444	¿Te casarías conmigo?
+677	Ya me di cuenta de que eres necio.
+792	Muchos jóvenes se suicidan últimamente, eso es muy raro.
+350	Mi abuelo tiene 90 años.
+158	Rocío ya entró al museo.
+705	La biblia dice: “Gloria a Dios”
+384	Ayer leí el Apocalipsis de la Biblia.
+442	Quiero comer arroz con huevo.
+324	En el rancho de mi tía, diario ordeñan a las vacas.
+930	Luis no hace caso a los consejos de su abuela.
+345	De aquí a Tijuana me hago 8 horas.
+886	¡Qué chido está tu carro!
+130	En Corea del Sur hay mucho pescado.
+753	El sábado habrá ofertas en Liverpool.
+196	Compré una camisa moderna.
+831	Mi tío fue candidato a gobernador de Chihuahua.
+317	Ten cuidado, discriminar está prohibido.
+147	Mañana empieza mi dieta.
+775	¡Es imposible, vi un ovni!
+830	Nosotros iremos a Cancún el próximo año.
+767	En la República Mexicana hay 31 estados.
+882	Mi maestro me enseña LSM
+818	La cacerola está pesada.
+949	Mi papá compra su café en Oxxo diariamente.
+865	Mi abuelo pertenece a la congregación de los Testigos de Jehová.
+642	El hombre torturaba a los animales.
+704	Todos los días voy al gimnasio.
+887	¿Cuántos hijos tienes?
+79	Bienvenido a mi casa
+96	La capital de Argentina es Buenos Aires.
+737	Tú ya aprendiste la lección.
+172	Los genitales de la mujer son diferentes a los del hombre.
+959	No puedo salir a jugar hoy.
+641	Jugando David y yo nos dimos un tope ayer.
+128	Él tenía dudas, pero le expliqué y lo convencí.
+752	Compré un litro de leche.
+740	Yo estoy aprendiendo lengua de señas.
+915	Mi papá tiene dos direcciones.
+421	Ese anillo tiene un brillante muy caro.
+448	Hoy todos iremos al parque contigo.
+429	Panamá está en Centroamérica.
+268	Eso no me gusta, me da asco.
+776	Ya pagué completamente por mi carro.
+246	Yo tuve suerte de poderlo agarrar.
+52	Mónica ayunó por tres días.
+455	Mi jefe nos paga a todos en efectivo.
+870	Hoy es la convención de sordos.
+514	Toca el timbre para que te abran la puerta.
+777	La paloma es blanca.
+111	Necesito unas puertas para mi clóset.
+527	Una adolescente se ahorcó.
+903	Él y yo tenemos una cita, nos vemos allá.
+35	Él estaba triste ayer, yo lo animé, le compré un helado.
+680	Después te cuento qué pasó.
+543	Trae el carrito para echar las cosas.
+941	El jefe siempre está en su oficina, nunca sale.
+955	Yo siempre prendo la televisión en la tarde.
+825	Yo compré una cama nueva.
+814	Compré unos binoculares para ver las estrellas.
+461	Él me dijo estúpido.
+418	Ayer rompí el bastón blanco de mi tío.
+563	El año pasado ese perro engordó mucho.
+164	Manuel tiene una gran panza.
+325	El fin de semana mis primos y yo vimos muchas panteras sueltas en Africam Safari.
+571	El hijo de mi vecina ayer golpeó a su perro.
+621	En mi nuevo trabajo me dieron seguro social para mi atención médica.
+70	El bebé duerme todo el día.
+658	La población femenina aumentó en los últimos años.
+202	Debo visitar Myanmar.
+410	El gobierno no autorizó la ley ciudadana.
+179	Hoy conocí una nueva librería.
+591	Mete los cuadernos dentro de la mochila.
+943	A mi mamá le gusta el orden en casa.
+174	No sé tu dirección.
+336	En el mercado Sonora hay surtido de dulces.
+398	Así es mi carácter.
+396	Hoy hay una exposición de arte en el Zócalo a las dos de la tarde.
+413	Ayer fui con mi prima Estela a una fiesta de mi trabajo.
+47	Este año aumentarán las ganancias en la tienda.
+936	Yo viajé a Oaxtepec.
+515	Todavía no voy a la escuela.
+585	Pegar una hoja blanca en el cuaderno.
+684	Hoy fui a mi práctica de tiro.
+155	María empujó a su hermano.
+484	A mi abuelo lo operaron del corazón.
+58	La ballena es uno de los animales más grandes.
+632	Vi la película de Superman el sábado pasado.
+160	Joel estudió en España.
+237	¿Qué haces?
+44	Jazmín y Rocío asaron el pollo.
+480	Tienes que pagar la colegiatura de manera mensual.
+487	Ve a comprar pan.
+90	Brasil es famoso por sus carnavales.
+902	Viven muchos animales en Chapultepec.
+45	Ramiro es muy astuto.
+226	Jorge comió dos quesadillas de queso.
+742	Yo tengo tres amigas que son lesbianas.
+129	Corea del Norte es muy famosa en las noticias.
+332	Reunión es una isla que pertenece a Francia.
+9	Ana abraza a Juan porque lo extraña mucho.
+283	Hoy voy a ir a pasear al bosque.
+351	Me estoy exprimiendo un barro.
+49	Se entregaron los avances del quinto semestre.
+500	El fin de semana nos casamos por el civil.
+546	Siempre dices chismes.
+933	Usaré un vestido nuevo en tu fiesta.
+116	Compartir es un valor muy importante.
+645	La ventana es blanca.
+23	Alabo a Cristo.
+364	El cumpleaños de mi suegra es en agosto.
+805	Minerva casi se ahoga en el mar.
+411	La avena es un cereal saludable.
+343	Qué lástima que hoy no te vas de viaje a Tijuana.
+156	¿Entendiste todo?
+608	Tengo mucha familia en Salamanca.
+313	En mi pueblo las personas cosechan maíz.
+609	La maestra llegó tarde al salón.
+611	El domingo vamos al Sam’s a comprar cosas con la familia.
+300	El cocodrilo atrapó al venado, ¡pobre!
+390	En Chapultepec hay muchas ardillas juguetonas.
+774	Ese perro es muy sucio, siempre se hace pipí.
+103	Mi casa es humilde.
+826	Yo iré después a la Cámara de Diputados.
+625	Explícame bien, pero de forma sencilla.
+380	El anciano me da consejos que yo obedezco.
+118	Mi abuela me hizo una confesión ayer.
+929	Perdí la apuesta, ni modo.
+722	Tu amigo siempre guiña el ojo.
+20	Oh, ya entiendo, gracias por explicarme.
+837	Ayer mi mamá comió en Carl’s Jr.
+501	Los conejos se reproducen muy rápido.
+912	Yo desayuno en la escuela diario.
+552	Mañana expondré en la escuela sobre la Constitución.
+778	Mañana es mi cumpleaños, ojalá haya pastel.
+584	En algunos ríos se puede usar lancha.
+847	¿Estudiaste para chef?
+851	El cielo está nublado
+471	Laura lava la ropa cada semana.
+637	El tenis es el deporte blanco.
+477	Los luchadores usan máscara.
+724	Ya estoy harto de tanto trabajo.
+11	Abre tu mente para entender este tema difícil.
+197	En vacaciones visitaré la ciudad de Montreal.
+934	Pepe fue de vacaciones a Nuevo León.
+232	La sopa de codito es mi favorita.
+569	Los helados de la Michoacana son muy famosos.
+183	Ayer comí pan con mermelada de fresa.
+198	Mi abuelo murió hace cinco años.
+860	La comida de Colombia es muy sabrosa.
+780	El pico se usa para poder extraer oro.
+296	Casi nos caemos de la bicicleta.
+48	En la ausencia de la maestra, los alumnos se salieron del salón.
+482	La mesa de mi mamá es de madera.
+214	Martín compró papel de baño.
+864	Raúl es el compadre de mi papá.
+858	Yo pongo dos cobijas sobre mi cama.
+718	Ya conozco Guadalajara, es una ciudad bonita.
+68	No debes seguir de travieso, ya basta.
+816	¡Mis botas me gustan mucho!
+730	Yo fui a Inglaterra.
+842	Los niños traen el certificado de la escuela.
+531	El próximo año viajaré a Europa.
+508	Yo estoy en sexto año de primaria y me gusta.
+683	Los árboles están disminuyendo en la Ciudad de México.
+285	Me gusta mucho bucear.
+892	El estadio está abarrotado.
+229	El señor Mario tiene una tienda.
+286	Busco un libro, pero no lo encuentro.
+835	El papá de Alan tiene la cara delgada.
+758	LSM significa Lengua de Señas Mexicana.
+123	Mi papá trabaja en la construcción.
+651	Tu amigo es muy amable.
+656	Los precios de este lugar han aumentado.
+321	Me gusta mucho la jícama.
+299	Súbete a la montaña rusa, no seas cobarde.
+274	Mi deporte preferido es el baloncesto.
+786	Hace falta presupuesto para la educación.
+142	Siéntate delante de mí.
+958	¡Mi abuelo es muy sabio!
+385	El Apocalipsis tiene muchos símbolos diferentes.
+186	El musulmán ora en la mezquita.
+144	El dueño de la fábrica hizo varios despidos.
+46	Tengo un asunto pendiente.
+153	Hay muchos elefantes en África.
+458	Perdí el encendedor en la calle.
+574	A todos nos gustan los helados.
+291	Yo no conozco Camboya, ¿y tú?
+127	Convéncelo para ir a pasear.
+366	En el autobús hay aire acondicionado.
+241	Ya te acusé, vas a ver.
+667	Tu coche es muy caro.
+700	Yo compré un gel nuevo.
+491	Matar es un pecado.
+954	Si te portas bien, irás a la fiesta.
+555	A Jesús, el único hijo de Dios, lo crucificaron.
+236	¡Guau! Su trabajo es en verdad muy importante.
+434	En el metro hay muchos ciegos.
+813	¿Puedes cambiarme el billete?
+726	Los hot cakes son mi comida preferida.
+978	Los zapatos son negros.
+745	Liberia es un país pobre.
+764	Apaga la luz, por favor.
+371	Antier fui al altar de una iglesia mormona.
+221	El pingüino vive en la Antártida.
+873	Las próximas vacaciones viajaré a Cozumel.
+440	La cocaína es una droga peligrosa.
+856	Ellos practican deportes en la Ciudad Deportiva.
+219	El pez globo vive en agua dulce.
+271	Hay una conferencia en el auditorio.
+159	A mamá le duele la espalda.
+426	Mi esposo y yo nos fuimos de luna de miel a Canadá.
+309	El niño copió en el examen y la maestra lo descubrió.
+185	Ella llega al trabajo en el metrobús.
+562	Hoy me voy de vacaciones a el Salvador.
+772	Ella tiene trabajo de operadora telefónica.
+10	Abre la puerta, por favor.
+644	Uzbekistán tiene frontera al sur con Afganistán.
+956	Debes decir la verdad, nada de pretextos.
+535	A mi hijo le regalaron una bicicleta en su cumpleaños.
+278	Debes ponerte bloqueador solar para estar tranquilo.
+320	Te espero allá afuera.
+120	Confío en que todo estará bien.
+736	En Latinoamérica hay ciudades en verdad bonitas.
