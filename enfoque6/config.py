@@ -3,7 +3,7 @@
 import os
 
 # Modelo Ollama
-OLLAMA_MODEL = "deepseek-r1:70b"
+OLLAMA_MODEL = "deepseek-r1:32b"
 OLLAMA_URL = "http://localhost:11434/api/chat"
 TEMPERATURE = 0.1
 MAX_TOKENS = 256
@@ -23,13 +23,13 @@ EMBEDDING_MODEL = "paraphrase-multilingual-MiniLM-L12-v2"
 
 # Experimentos a ejecutar
 EXPERIMENTS = [
-    {"name": "zero-shot-rules",    "type": "zero_shot",   "k": 0},
-    {"name": "few-shot-5-rules",   "type": "few_shot",    "k": 5},
-    {"name": "few-shot-10-rules",  "type": "few_shot",    "k": 10},
-    {"name": "hybrid-zero",        "type": "hybrid_zero", "k": 0},
-    {"name": "hybrid-few-5",       "type": "hybrid_few",  "k": 5},
-    {"name": "hybrid-few-10",      "type": "hybrid_few",  "k": 10},
-    {"name": "rag-hybrid-7",       "type": "rag_hybrid",  "k": 7},
+    {"name": "zero-shot-rules", "type": "zero_shot", "k": 0},
+    {"name": "few-shot-5-rules", "type": "few_shot", "k": 5},
+    {"name": "few-shot-10-rules", "type": "few_shot", "k": 10},
+    {"name": "hybrid-zero", "type": "hybrid_zero", "k": 0},
+    {"name": "hybrid-few-5", "type": "hybrid_few", "k": 5},
+    {"name": "hybrid-few-10", "type": "hybrid_few", "k": 10},
+    {"name": "rag-hybrid-7", "type": "rag_hybrid", "k": 7},
 ]
 
 # Retry / timeout para Ollama
