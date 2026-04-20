@@ -25,6 +25,7 @@ def translate(prompt: str) -> str:
         "model": config.OLLAMA_MODEL,
         "messages": [{"role": "user", "content": prompt}],
         "stream": False,
+        "think": False,
         "options": {
             "temperature": config.TEMPERATURE,
             "num_predict": config.MAX_TOKENS,

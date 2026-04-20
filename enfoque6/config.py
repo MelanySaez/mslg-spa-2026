@@ -6,7 +6,7 @@ import os
 OLLAMA_MODEL = "deepseek-r1:32b"
 OLLAMA_URL = "http://localhost:11434/api/chat"
 TEMPERATURE = 0.1
-MAX_TOKENS = 256
+MAX_TOKENS = 2048
 
 # Datos
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
