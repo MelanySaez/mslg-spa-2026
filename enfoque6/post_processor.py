@@ -1,11 +1,15 @@
-"""Post-procesamiento — extiende enfoque3.post_processor con soporte DeepSeek-R1."""
+"""Post-procesamiento — extiende enfoque3/post_processor.py con soporte DeepSeek-R1."""
 
-import re
-import sys
+import importlib.util
 import os
+import re
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "enfoque3"))
-from post_processor import clean as _clean_base  # noqa: E402
+_path = os.path.join(os.path.dirname(__file__), "..", "enfoque3", "post_processor.py")
+_spec = importlib.util.spec_from_file_location("enfoque3_post_processor", _path)
+_mod = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(_mod)
+
+_clean_base = _mod.clean
 
 _THINK_PATTERN = re.compile(r"<think>.*?</think>", re.DOTALL | re.IGNORECASE)
 
