@@ -1,12 +1,20 @@
 """Orquestador de experimentos SPA→MSLG — Enfoque 6.
 
 Tipos de experimento:
-  zero_shot   — prompt con reglas LSM extendidas, sin ejemplos.
-  few_shot    — reglas + k ejemplos fijos.
-  hybrid_zero — reglas + borrador del motor FOL + anotaciones.
-  hybrid_few  — reglas + borrador FOL + k ejemplos fijos.
-  rag         — reglas + k ejemplos recuperados semánticamente.
-  rag_hybrid  — reglas + borrador FOL + k ejemplos recuperados.
+  zero_shot            — prompt con reglas LSM extendidas, sin ejemplos.
+  zero_shot_cot        — zero-shot + chain-of-thought estructurado.
+  zero_shot_glossary   — zero-shot + glosario inline SPA→LSM.
+  zero_shot_full       — zero-shot + CoT + glosario + ejemplos negativos.
+  few_shot             — reglas + k ejemplos fijos.
+  few_shot_cot         — few-shot + chain-of-thought.
+  few_shot_negative    — few-shot + ejemplos negativos (errores frecuentes).
+  few_shot_curriculum  — few-shot ordenado por dificultad creciente.
+  few_shot_diverse     — few-shot con k ejemplos diversos (clustering del pool).
+  few_shot_full        — few-shot + CoT + glosario + negativos.
+  hybrid_zero          — reglas + borrador del motor FOL + anotaciones.
+  hybrid_few           — reglas + borrador FOL + k ejemplos fijos.
+  rag                  — reglas + k ejemplos recuperados semánticamente.
+  rag_hybrid           — reglas + borrador FOL + k ejemplos recuperados.
 """
 
 import csv
@@ -36,10 +44,16 @@ def run_experiment(experiment: dict, pool: list, val: list,
     exp_type = experiment["type"]
     k = experiment["k"]
     is_hybrid = exp_type in ("hybrid_zero", "hybrid_few", "rag_hybrid")
+    needs_diverse = exp_type == "few_shot_diverse"
 
     print(f"\n{'='*60}")
     print(f"  Experimento: {exp_name} (tipo={exp_type}, k={k})")
     print(f"{'='*60}")
+
+    # Precomputar ejemplos diversos (una sola vez por experimento)
+    diverse_examples = None
+    if needs_diverse and emb_index is not None:
+        diverse_examples = emb_index.select_diverse(k=k)
 
     results = []
     start_time = time.time()
@@ -54,8 +68,24 @@ def run_experiment(experiment: dict, pool: list, val: list,
         # Construir prompt
         if exp_type == "zero_shot":
             prompt = prompt_builder.build_zero_shot(spa)
+        elif exp_type == "zero_shot_cot":
+            prompt = prompt_builder.build_zero_shot_cot(spa)
+        elif exp_type == "zero_shot_glossary":
+            prompt = prompt_builder.build_zero_shot_glossary(spa)
+        elif exp_type == "zero_shot_full":
+            prompt = prompt_builder.build_zero_shot_full(spa)
         elif exp_type == "few_shot":
             prompt = prompt_builder.build_few_shot(spa, k=k)
+        elif exp_type == "few_shot_cot":
+            prompt = prompt_builder.build_few_shot_cot(spa, k=k)
+        elif exp_type == "few_shot_negative":
+            prompt = prompt_builder.build_few_shot_negative(spa, k=k)
+        elif exp_type == "few_shot_curriculum":
+            prompt = prompt_builder.build_few_shot_curriculum(spa, k=k)
+        elif exp_type == "few_shot_diverse":
+            prompt = prompt_builder.build_few_shot_diverse(spa, diverse_examples)
+        elif exp_type == "few_shot_full":
+            prompt = prompt_builder.build_few_shot_full(spa, k=k)
         elif exp_type == "hybrid_zero":
             prompt = prompt_builder.build_hybrid_zero(spa, analysis)
         elif exp_type == "hybrid_few":
@@ -114,7 +144,8 @@ def run_all(experiments=None):
 
     need_hybrid = any(e["type"] in ("hybrid_zero", "hybrid_few", "rag_hybrid")
                       for e in experiments)
-    need_rag = any(e["type"] in ("rag", "rag_hybrid") for e in experiments)
+    need_rag = any(e["type"] in ("rag", "rag_hybrid", "few_shot_diverse")
+                   for e in experiments)
 
     engine = None
     emb_index = None

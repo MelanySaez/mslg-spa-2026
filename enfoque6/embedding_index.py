@@ -2,6 +2,7 @@
 
 import numpy as np
 from sentence_transformers import SentenceTransformer
+from sklearn.cluster import KMeans
 from sklearn.metrics.pairwise import cosine_similarity
 
 import config
@@ -41,3 +42,27 @@ class EmbeddingIndex:
                 break
 
         return results
+
+    def select_diverse(self, k: int = 10, random_state: int = 42) -> list:
+        """Selecciona k ejemplos diversos vía k-means sobre embeddings del pool.
+
+        Toma el centroide de cada cluster y devuelve el ejemplo más cercano.
+        Garantiza cobertura de patrones en lugar de similitud a una query.
+        """
+        k = min(k, len(self.pool))
+        km = KMeans(n_clusters=k, random_state=random_state, n_init=10)
+        km.fit(self.embeddings)
+        selected = []
+        for cluster_id in range(k):
+            members = np.where(km.labels_ == cluster_id)[0]
+            if len(members) == 0:
+                continue
+            centroid = km.cluster_centers_[cluster_id].reshape(1, -1)
+            member_embs = self.embeddings[members]
+            dists = np.linalg.norm(member_embs - centroid, axis=1)
+            best_idx = members[np.argmin(dists)]
+            selected.append({
+                "spa": self.pool[best_idx]["spa"],
+                "mslg": self.pool[best_idx]["mslg"],
+            })
+        return selected

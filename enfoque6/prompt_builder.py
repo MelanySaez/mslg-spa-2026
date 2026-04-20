@@ -73,7 +73,10 @@ COORDINACIÓN Y SUBORDINACIÓN:
 - Oraciones subordinadas: generalmente por yuxtaposición sin conjunción explícita.\
 """
 
-# 15 ejemplos fijos que cubren las convenciones principales
+# 25 ejemplos fijos curados para cubrir categorías principales:
+# afirmativa, negativa (con/sin forma irregular), interrogativa, pasado, futuro,
+# nombres propios, lugares, compuestos, intensificadores, posesivos, plurales,
+# números, coordinación, condicional, cópula, femenino+MUJER, topicalización.
 FIXED_EXAMPLES = [
     {"spa": "Los peces azules son mis favoritos.",
      "mslg": "PEZ COLOR AZUL MI FAVORITO"},
@@ -105,7 +108,68 @@ FIXED_EXAMPLES = [
      "mslg": "TODOS-SÁBADOS MI AMIGO+MUJER SUYO NOVIO CASINO IR"},
     {"spa": "Mi tía cocina delicioso.",
      "mslg": "MI TÍO+MUJER DELICIOSO COCINAR"},
+    {"spa": "Hoy es mi cumpleaños.",
+     "mslg": "HOY MI CUMPLEAÑOS"},
+    {"spa": "No sé dónde está mi libro.",
+     "mslg": "MI LIBRO DÓNDE YO NO-SABER"},
+    {"spa": "¿Cuánto cuesta el pan?",
+     "mslg": "PAN COSTAR CUÁNTO"},
+    {"spa": "Mañana iremos al cine con mis primos.",
+     "mslg": "MAÑANA NOSOTROS MI PRIMO CINE IR"},
+    {"spa": "Si llueve, me quedo en casa.",
+     "mslg": "IMAGINAR LLOVER YO CASA QUEDAR"},
+    {"spa": "Tengo tres hermanos y una hermana.",
+     "mslg": "YO HERMANO 3 HERMANO+MUJER 1 TENER"},
+    {"spa": "¿Por qué no viniste ayer?",
+     "mslg": "AYER TÚ NO-VENIR POR-QUÉ"},
+    {"spa": "El perro negro ladra mucho.",
+     "mslg": "PERRO NEGRO LADRAR MUCHO"},
+    {"spa": "Nunca he viajado a Europa.",
+     "mslg": "EUROPA YO NUNCA VIAJAR"},
+    {"spa": "María trabaja en el hospital.",
+     "mslg": "dm-MARÍA HOSPITAL TRABAJAR"},
 ]
+
+# Glosario inline: términos SPA → glosa LSM frecuente.
+# Ayuda al modelo en zero-shot a no alucinar el léxico.
+LSM_GLOSSARY = """\
+GLOSARIO DE REFERENCIA (SPA → LSM):
+Pronombres: yo→YO, tú→TÚ, él/ella→ÉL/ELLA, nosotros→NOSOTROS, ustedes→USTEDES, ellos→ELLOS.
+Posesivos: mi→MI, tu→TU, su→SU, nuestro→NUESTRO, mío→MÍO, suyo→SUYO.
+Tiempo: ayer→AYER, hoy→HOY, mañana→MAÑANA, antes→ANTES, después→DESPUÉS, siempre→SIEMPRE, nunca→NUNCA, ahora→AHORA, ya→YA.
+Interrogativas: qué→QUÉ, quién→QUIÉN, dónde→DÓNDE, cuándo→CUÁNDO, cómo→CÓMO, cuánto→CUÁNTO, por qué→POR-QUÉ.
+Cantidad: mucho→MUCHO, poco→POCO, todo→TODO, nada→NADA, algo→ALGO, más→MÁS, menos→MENOS.
+Verbos comunes: ir→IR, venir→VENIR, tener→TENER, querer→QUERER, poder→PODER, saber→SABER, hacer→HACER, ver→VER, comer→COMER, beber→BEBER, trabajar→TRABAJAR, estudiar→ESTUDIAR, vivir→VIVIR, dormir→DORMIR.
+Negativos irregulares: no poder→NO-PODER, no haber→NO-HAY, no saber→NO-SABER, no querer→NO-QUERER, no hacer→NO-HACER, no gustar→NO-GUSTAR, no conocer→NO-CONOCER, no ver→NO-VER.
+Conectores: y→Y, pero→PERO, si→IMAGINAR (condicional).
+Familia (forma masculina + MUJER para femenino): hermana→HERMANO+MUJER, tía→TÍO+MUJER, hija→HIJO+MUJER, amiga→AMIGO+MUJER, madre→MAMÁ, padre→PAPÁ.\
+"""
+
+# Ejemplos negativos: muestran errores frecuentes que el modelo debe evitar.
+NEGATIVE_EXAMPLES = [
+    {"spa": "Mi madre cocina arroz.",
+     "mal":  "LA MADRE COCINA EL ARROZ",
+     "bien": "MI MAMÁ ARROZ COCINAR",
+     "error": "no eliminó artículos y no convirtió verbo a infinitivo"},
+    {"spa": "Ayer fui al mercado.",
+     "mal":  "YO IR MERCADO AYER",
+     "bien": "AYER YO MERCADO IR",
+     "error": "marcador temporal no va al INICIO"},
+    {"spa": "Mi hermana es alta.",
+     "mal":  "MI HERMANA SER ALTA",
+     "bien": "MI HERMANO+MUJER ALTA",
+     "error": "no aplicó +MUJER y conservó cópula SER"},
+]
+
+# Instrucciones de chain-of-thought estructurado.
+COT_INSTRUCTIONS = """\
+RAZONA ANTES DE RESPONDER (no muestres los pasos, solo la glosa final):
+  1. Identifica: tiempo, sujeto, objeto, verbo principal, negación, interrogativa.
+  2. Elimina: artículos, preposiciones (salvo en compuestos), verbos cópula.
+  3. Transforma: verbos a infinitivo MAYÚSCULAS, femeninos a MASCULINO+MUJER, nombres propios con dm-.
+  4. Reordena: tiempo al inicio; interrogativas según regla (CUÁNTO/POR-QUÉ al final, QUIÉN al inicio).
+  5. Emite SOLO la glosa final en una línea, sin explicar.\
+"""
 
 
 # ── Constructores de prompts ──────────────────────────────────────────────────
@@ -218,5 +282,138 @@ ANÁLISIS PREVIO (usa como guía para mejorar el borrador, no es definitivo):
 
 Aplica las reglas LSM para corregir y mejorar el borrador. Responde ÚNICAMENTE con la glosa final.
 
+SPA: "{sentence}"
+MSLG:"""
+
+
+# ── Nuevos constructores: mejoras zero-shot y few-shot ─────────────────────────
+
+def _format_negative_examples() -> str:
+    lines = ["EJEMPLOS DE ERRORES FRECUENTES (NO los repitas):"]
+    for ex in NEGATIVE_EXAMPLES:
+        lines.append(f'  SPA:  "{ex["spa"]}"')
+        lines.append(f'  MAL:  "{ex["mal"]}"   ← {ex["error"]}')
+        lines.append(f'  BIEN: "{ex["bien"]}"')
+        lines.append("")
+    return "\n".join(lines).rstrip()
+
+
+def _format_examples(examples: list) -> str:
+    return "\n".join(
+        f'SPA: "{ex["spa"]}" → MSLG: "{ex["mslg"]}"'
+        for ex in examples
+    )
+
+
+def build_zero_shot_cot(sentence: str) -> str:
+    """Zero-shot con chain-of-thought estructurado."""
+    return f"""{PROMPT_BASE}
+
+{COT_INSTRUCTIONS}
+
+Traduce:
+SPA: "{sentence}"
+MSLG:"""
+
+
+def build_zero_shot_glossary(sentence: str) -> str:
+    """Zero-shot con glosario inline de términos frecuentes."""
+    return f"""{PROMPT_BASE}
+
+{LSM_GLOSSARY}
+
+Traduce:
+SPA: "{sentence}"
+MSLG:"""
+
+
+def build_zero_shot_full(sentence: str) -> str:
+    """Zero-shot con CoT + glosario + negativos (combinación máxima)."""
+    return f"""{PROMPT_BASE}
+
+{LSM_GLOSSARY}
+
+{_format_negative_examples()}
+
+{COT_INSTRUCTIONS}
+
+Traduce:
+SPA: "{sentence}"
+MSLG:"""
+
+
+def build_few_shot_cot(sentence: str, k: int = 10) -> str:
+    """Few-shot + chain-of-thought."""
+    examples = FIXED_EXAMPLES[:k]
+    return f"""{PROMPT_BASE}
+
+{COT_INSTRUCTIONS}
+
+EJEMPLOS:
+{_format_examples(examples)}
+
+Traduce:
+SPA: "{sentence}"
+MSLG:"""
+
+
+def build_few_shot_negative(sentence: str, k: int = 10) -> str:
+    """Few-shot + ejemplos negativos al final para reforzar errores a evitar."""
+    examples = FIXED_EXAMPLES[:k]
+    return f"""{PROMPT_BASE}
+
+EJEMPLOS CORRECTOS:
+{_format_examples(examples)}
+
+{_format_negative_examples()}
+
+Traduce:
+SPA: "{sentence}"
+MSLG:"""
+
+
+def build_few_shot_curriculum(sentence: str, k: int = 10) -> str:
+    """Few-shot con ejemplos ordenados por dificultad creciente (proxy: longitud)."""
+    examples = sorted(FIXED_EXAMPLES[:k], key=lambda e: len(e["spa"]))
+    return f"""{PROMPT_BASE}
+
+EJEMPLOS (de simple a complejo):
+{_format_examples(examples)}
+
+Traduce:
+SPA: "{sentence}"
+MSLG:"""
+
+
+def build_few_shot_diverse(sentence: str, diverse_examples: list) -> str:
+    """Few-shot con ejemplos seleccionados por diversidad (clustering sobre pool).
+
+    La selección de diverse_examples se hace fuera (embedding_index).
+    """
+    return f"""{PROMPT_BASE}
+
+EJEMPLOS (cobertura diversa de patrones LSM):
+{_format_examples(diverse_examples)}
+
+Traduce:
+SPA: "{sentence}"
+MSLG:"""
+
+
+def build_few_shot_full(sentence: str, k: int = 10) -> str:
+    """Few-shot + CoT + glosario + negativos (combinación máxima)."""
+    examples = FIXED_EXAMPLES[:k]
+    return f"""{PROMPT_BASE}
+
+{LSM_GLOSSARY}
+
+{COT_INSTRUCTIONS}
+
+EJEMPLOS CORRECTOS:
+{_format_examples(examples)}
+
+{_format_negative_examples()}
+
+Traduce:
 SPA: "{sentence}"
 MSLG:"""
