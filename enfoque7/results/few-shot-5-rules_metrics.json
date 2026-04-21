@@ -1,0 +1,7 @@
+{
+  "bleu": 0.16265789588649243,
+  "meteor": 0.5545349963303264,
+  "chrf": 0.6630511333654328,
+  "experiment": "few-shot-5-rules",
+  "total_time_seconds": 158.9
+}

@@ -20,4 +20,6 @@ dependencies = [
     "datasets>=4.8.4",
     "evaluate>=0.4.6",
     "rouge-score>=0.1.2",
+    "anthropic>=0.40",
+    "python-dotenv>=1.0",
 ]
