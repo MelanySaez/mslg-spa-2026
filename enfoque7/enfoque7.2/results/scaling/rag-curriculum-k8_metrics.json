@@ -1,0 +1,7 @@
+{
+  "bleu": 0.24356538569467887,
+  "meteor": 0.5898608871120777,
+  "chrf": 0.6892077585233825,
+  "experiment": "rag-curriculum-k8",
+  "total_time_seconds": 276.0
+}
