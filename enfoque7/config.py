@@ -30,7 +30,8 @@ ENABLE_PROMPT_CACHE = os.environ.get("ANTHROPIC_PROMPT_CACHE", "true").lower() =
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_ROOT = os.path.dirname(BASE_DIR)
 DATASET_PATH = os.path.join(PROJECT_ROOT, "enfoque3", "data", "MSLG_SPA_train.txt")
-RESULTS_DIR = os.path.join(BASE_DIR, "results")
+RESULTS_SUBDIR = os.environ.get("RESULTS_SUBDIR", "improved")
+RESULTS_DIR = os.path.join(BASE_DIR, "results", RESULTS_SUBDIR)
 SUBMISSIONS_DIR = os.path.join(BASE_DIR, "submissions")
 TRAIN_SPLIT = 400
 VAL_SPLIT = 90
@@ -40,23 +41,21 @@ RANDOM_SEED = 42
 EMBEDDING_MODEL = "paraphrase-multilingual-MiniLM-L12-v2"
 
 # ── Experimentos ──────────────────────────────────────────────────────────────
-# Solo variantes zero-shot y few-shot. Los híbridos/RAG quedan fuera del alcance
-# de este enfoque (API sencilla + costo controlado).
+# Matriz reducida (5 variantes efectivas, no 11). Eliminadas: zero_shot_cot,
+# zero_shot_glossary, zero_shot_full, few_shot_cot, few_shot_negative,
+# few_shot_full — sin ganancia demostrada y costo duplicado.
+# Añadida: few_shot_rag (retrieval real sobre pool del train).
 EXPERIMENTS = [
-    # Zero-shot
-    {"name": "zero-shot-rules",    "type": "zero_shot",          "k": 0},
-    {"name": "zero-shot-cot",      "type": "zero_shot_cot",      "k": 0},
-    {"name": "zero-shot-glossary", "type": "zero_shot_glossary", "k": 0},
-    {"name": "zero-shot-full",     "type": "zero_shot_full",     "k": 0},
-
-    # Few-shot (k=10 como baseline fuerte)
-    {"name": "few-shot-5-rules",      "type": "few_shot",            "k": 5},
-    {"name": "few-shot-10-rules",     "type": "few_shot",            "k": 10},
-    {"name": "few-shot-10-cot",       "type": "few_shot_cot",        "k": 10},
-    {"name": "few-shot-10-negative",  "type": "few_shot_negative",   "k": 10},
-    {"name": "few-shot-10-curriculum","type": "few_shot_curriculum", "k": 10},
-    {"name": "few-shot-10-diverse",   "type": "few_shot_diverse",    "k": 10},
-    {"name": "few-shot-10-full",      "type": "few_shot_full",       "k": 10},
+    # Control: zero-shot con reglas corregidas
+    {"name": "zero-shot-rules",        "type": "zero_shot",           "k": 0},
+    # Baseline mínimo few-shot
+    {"name": "few-shot-5-rules",       "type": "few_shot",            "k": 5},
+    # Ganador previo (curriculum k=10) con ejemplos corpus-faithful
+    {"name": "few-shot-10-curriculum", "type": "few_shot_curriculum", "k": 10},
+    # Cobertura diversa vía k-means
+    {"name": "few-shot-10-diverse",    "type": "few_shot_diverse",    "k": 10},
+    # NUEVA: RAG top-k sobre pool real del train (dominante teórico)
+    {"name": "few-shot-5-rag",         "type": "few_shot_rag",        "k": 5},
 ]
 
 # ── Retry / timeout ───────────────────────────────────────────────────────────

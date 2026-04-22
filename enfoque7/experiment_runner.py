@@ -18,7 +18,8 @@ import post_processor
 import prompt_builder
 
 
-def _build_prompt(exp_type: str, k: int, spa: str, diverse_examples=None):
+def _build_prompt(exp_type: str, k: int, spa: str,
+                  diverse_examples=None, emb_index=None):
     if exp_type == "zero_shot":
         return prompt_builder.build_zero_shot(spa)
     if exp_type == "zero_shot_cot":
@@ -39,6 +40,9 @@ def _build_prompt(exp_type: str, k: int, spa: str, diverse_examples=None):
         return prompt_builder.build_few_shot_diverse(spa, diverse_examples)
     if exp_type == "few_shot_full":
         return prompt_builder.build_few_shot_full(spa, k=k)
+    if exp_type == "few_shot_rag":
+        retrieved = emb_index.retrieve(spa, k=k)
+        return prompt_builder.build_few_shot_rag(spa, retrieved)
     raise ValueError(f"Tipo desconocido: {exp_type}")
 
 
@@ -65,7 +69,9 @@ def run_experiment(experiment: dict, pool: list, val: list, emb_index=None):
         mslg_real = par["mslg"]
 
         system_prompt, user_prompt = _build_prompt(
-            exp_type, k, spa, diverse_examples=diverse_examples
+            exp_type, k, spa,
+            diverse_examples=diverse_examples,
+            emb_index=emb_index,
         )
         raw_response = anthropic_client.translate(system_prompt, user_prompt)
         mslg_pred = post_processor.clean(raw_response)
@@ -106,11 +112,13 @@ def run_all(experiments=None):
 
     pool, val = data_loader.split_dataset()
 
-    need_diverse = any(e["type"] == "few_shot_diverse" for e in experiments)
+    need_embeddings = any(
+        e["type"] in ("few_shot_diverse", "few_shot_rag") for e in experiments
+    )
     emb_index = None
-    if need_diverse:
+    if need_embeddings:
         import embedding_index as emb_mod
-        print("\nConstruyendo índice de embeddings (para few-shot-diverse)...")
+        print("\nConstruyendo índice de embeddings (few-shot-diverse / few-shot-rag)...")
         emb_index = emb_mod.EmbeddingIndex(pool)
 
     summary = []
