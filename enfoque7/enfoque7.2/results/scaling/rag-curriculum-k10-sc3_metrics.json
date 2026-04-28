@@ -1,7 +1,0 @@
-{
-  "bleu": 0.26540387041917,
-  "meteor": 0.5963538255760402,
-  "chrf": 0.6936516751549163,
-  "experiment": "rag-curriculum-k10-sc3",
-  "total_time_seconds": 1034.0
-}

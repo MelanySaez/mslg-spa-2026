@@ -1,0 +1,122 @@
+ID	MSLG	SPA
+1000	MI ABUELO ALTO	Mi abuelo es alto.
+1001	ESE PERRO FEROZ	Ese perro es muy feroz.
+1002	MI PRIMO+MUJER INTELIGENTE	Mi prima es muy inteligente.
+1003	dm-ROBERTO YA LLEGAR	Roberto ya llegó.
+1004	dm-LAURA SU HIJO NACER YA	Laura ya tuvo a su hijo.
+1005	#SEP NUEVO DIRECTOR	La SEP tiene nuevo director.
+1006	AYER #TV NOTICIA YO VER	Ayer vi una noticia en la TV.
+1007	MAÑANA YO VIAJAR MONTERREY	Mañana viajo a Monterrey.
+1008	AYER YO ESTUDIAR MUCHO	Ayer estudié mucho.
+1009	MI HERMANO+MUJER BAILAR ELLA GUSTAR	A mi hermana le gusta bailar.
+1010	JARDÍN FLOR FLOR HABER	Hay muchas flores en el jardín.
+1011	MI GATO NEGRO	Mi gato es negro.
+1012	YO YA TERMINAR TAREA	Ya terminé la tarea.
+1013	¿PORQUÉ TÚ LLORAR?	¿Por qué lloras?
+1014	TARDE YO LLEGAR PORQUÉ TRÁFICO	Llegué tarde porque había tráfico.
+1015	SEMANA DOS-DE-NOSOTROS NO-TE-HE-VISTO	No te he visto en una semana.
+1016	DOS-DE-NOSOTROS CINE IR	Él y yo vamos al cine.
+1017	MI PAPÁ TRABAJO MUCHO CANSADO	Mi papá está muy cansado del trabajo.
+1018	dm-CARLOS MÉDICO	Carlos es médico.
+1019	MI TÍO+MUJER COCINAR DELICIOSO	Mi tía cocina delicioso.
+1020	FUTURO YO UNIVERSIDAD ESTUDIAR	En el futuro estudiaré en la universidad.
+1021	PARQUE NIÑO NIÑO JUGAR	Los niños juegan en el parque.
+1022	DIARIO YO MUCHO AGUA BEBER	Yo bebo mucha agua diario.
+1023	ESE LIBRO CARO	Ese libro es caro.
+1024	MI MAMÁ PASTEL ELLA PREPARAR	Mi mamá preparó un pastel.
+1025	SIEMPRE YO GIMNASIO IR	Yo siempre voy al gimnasio.
+1026	dm-MARIANA UNIVERSIDAD TERMINAR YA	Mariana ya terminó la universidad.
+1027	HOY LLOVER MUCHO	Hoy llueve mucho.
+1028	AYER CINE PELÍCULA YO VER	Ayer vi una película en el cine.
+1029	MAÑANA MI AMIGO+MUJER SU CUMPLEAÑOS	El cumpleaños de mi amiga es mañana.
+1030	YO GUSTAR CAFÉ CON LECHE	Me gusta el café con leche.
+1031	TU LIBRO ROJO YO YA ENCONTRAR	Encontré tu libro rojo.
+1032	dm-PEDRO ÉL VIAJAR EUROPA YA	Pedro viajó a Europa.
+1033	MI NOVIO ALTO GUAPO	Mi novio es alto y guapo.
+1034	CENTRO RUIDO MUCHO HABER	En el centro hay mucho ruido.
+1035	DIARIO YO PERIÓDICO LEER	Yo leo el periódico diario.
+1036	NOCHE MI PERRO LADRAR LADRAR	Mi perro ladra mucho en la noche.
+1037	MI HIJO+MUJER MUÑECA ELLA QUERER	Mi hija quiere una muñeca.
+1038	YA NOSOTROS AEROPUERTO LLEGAR	Ya llegamos al aeropuerto.
+1039	CELULAR NUEVO YO COMPRAR YA	Compré un celular nuevo.
+1040	dm-ANTONIO SU ESPOSA MAESTRA	La esposa de Antonio es maestra.
+1041	COCINA OLOR SABROSO	La cocina huele sabroso.
+1042	MAÑANA TEMPRANO YO BAÑAR	Mañana me baño temprano.
+1043	MI CARRO YA DESCOMPONERSE	Mi carro ya se descompuso.
+1044	HOY FRÍO MUCHO	Hoy hace mucho frío.
+1045	TARJETA YO CUENTA PAGAR	Pago la cuenta con tarjeta.
+1046	¿TU CASA CUÁL?	¿Cuál es tu casa?
+1047	¿TU NOMBRE CUÁL?	¿Cuál es tu nombre?
+1048	MI HERMANO FUTBOL ÉL JUGAR	Mi hermano juega futbol.
+1049	YO CABEZA DOLER	Me duele la cabeza.
+1050	dm-LUIS YA PADRE	Luis ya es papá.
+1051	AYER LIBRO YO YA LEER	Ayer leí un libro.
+1052	MI AMIGO DINERO ÉL PRESTAR MÍ	Mi amigo me prestó dinero.
+1053	ESE RESTAURANTE COMIDA BUENA	Ese restaurante tiene buena comida.
+1054	YO QUERER APRENDER LSM	Quiero aprender LSM.
+1055	PRÓXIMO-SÁBADO dm-SOFÍA SU CUMPLEAÑOS	El cumpleaños de Sofía es el próximo sábado.
+1056	TODOS-DOMINGOS FAMILIA NOSOTROS JUNTOS COMER	Los domingos la familia comemos juntos.
+1057	ELLA BONITA MUCHO	Ella es muy bonita.
+1058	MOCHILA ADENTRO MI CUADERNO HABER	Mi cuaderno está en la mochila.
+1059	YO LLAVE CASA OLVIDAR	Olvidé las llaves de la casa.
+1060	CALLE ESE HOMBRE GRITAR GRITAR	Ese hombre grita mucho en la calle.
+1061	#USA SORDO MUCHO HABER	En USA hay muchos sordos.
+1062	dm-EMILIO SU AUTO NEGRO	El auto de Emilio es negro.
+1063	MI ABUELO+MUJER SOPA RICA HACER	Mi abuela hace una sopa rica.
+1064	PRÓXIMO MES YO OAXACA VIAJAR	El próximo mes viajaré a Oaxaca.
+1065	AYER FIESTA YO IR MUCHO BAILAR	Ayer fui a la fiesta y bailé mucho.
+1066	¿TÚ YA CENAR?	¿Ya cenaste?
+1067	MI MAMÁ ENOJADA PORQUÉ YO TARDE LLEGAR	Mi mamá está enojada porque llegué tarde.
+1068	dm-MIGUEL dm-JUAN AMBOS AMIGOS	Miguel y Juan son amigos.
+1069	TEMPRANO TÚ DEBER DORMIR	Debes dormir temprano.
+1070	YO GUSTAR ALBERCA NADAR	Me gusta nadar en la alberca.
+1071	ESE NIÑO TRAVIESO MUCHO	Ese niño es muy travieso.
+1072	MI VECINO SUYO PERRO GRANDE	El perro de mi vecino es grande.
+1073	YO LECHE COMPRAR NECESITAR	Necesito comprar leche.
+1074	FUTURO YO DOCTOR YO	En el futuro seré doctor.
+1075	MERCADO FRUTA FRESCA HABER	En el mercado hay fruta fresca.
+1076	dm-DANIELA CANTAR BIEN	Daniela canta bien.
+1077	SIEMPRE MI HIJO TAREA HACER	Mi hijo siempre hace su tarea.
+1078	BIBLIOTECA LIBRO YO PERDER	Perdí un libro en la biblioteca.
+1079	BAÑO SUCIO TÚ DEBER LIMPIAR	Debes limpiar el baño sucio.
+1080	DOMINGO MI AMIGO ÉL CASAR	Mi amigo se casa el domingo.
+1081	AVENIDA TRÁFICO MUCHO HABER	Hay mucho tráfico en la avenida.
+1082	YO GUSTAR MÚSICA CLÁSICA	Me gusta la música clásica.
+1083	¿DÓNDE MI MOCHILA DÓNDE?	¿Dónde está mi mochila?
+1084	dm-LUCAS FUTURO INGENIERO	Lucas será ingeniero.
+1085	MI HERMANO+MUJER SU NOVIO ALTO	El novio de mi hermana es alto.
+1086	AYER CENA YO PIZZA COMER	Ayer cené pizza.
+1087	MI PAPÁ #TV NOTICIA LEER	Mi papá lee las noticias en la TV.
+1088	SIEMPRE MAÑANA YO CAFÉ BEBER	Yo siempre tomo café en la mañana.
+1089	ESA NIÑA ELLA LLORAR MUCHO	Esa niña llora mucho.
+1090	MI AMIGO+MUJER TAREA ELLA AYUDAR MÍ	Mi amiga me ayudó con la tarea.
+1091	dm-ROCÍO HOSPITAL ELLA TRABAJAR	Rocío trabaja en el hospital.
+1092	NOCHE YO NO-PODER DORMIR	No puedo dormir en la noche.
+1093	YA MI CARRO YO LAVAR	Ya lavé mi carro.
+1094	MI HIJO PEQUEÑO JUGUETE QUERER	Mi hijo pequeño quiere un juguete.
+1095	MI PERRO SU NOMBRE dm-MAX	Mi perro se llama Max.
+1096	PRÓXIMO AÑO CASA NUEVA YO DESEAR COMPRAR	El próximo año quiero comprar una casa nueva.
+1097	dm-FERNANDO LSM RÁPIDO APRENDER	Fernando aprende LSM rápido.
+1098	ELLA PELO LARGO TENER	Ella tiene pelo largo.
+1099	MAÑANA TEMPRANO YO DEBER DESPERTAR	Mañana debo despertar temprano.
+1100	YO GUSTAR HELADO CHOCOLATE	Me gusta el helado de chocolate.
+1101	MI PAPÁ CARRO VIEJO ÉL VENDER YA	Mi papá vendió el carro viejo.
+1102	SEMANA PASADA YO GRIPE ENFERMAR	La semana pasada me enfermé de gripe.
+1103	ESE TRABAJO ABURRIDO MUCHO	Ese trabajo es muy aburrido.
+1104	YO CELULAR NUEVO QUERER	Quiero un celular nuevo.
+1105	AYER LLUVIA MUCHA CAER	Ayer cayó mucha lluvia.
+1106	dm-JAVIER SU HERMANO POLICÍA	El hermano de Javier es policía.
+1107	MAÑANA DOCTOR CITA YO TENER	Mañana tengo cita con el doctor.
+1108	NIÑO SU JUGUETE NUEVO ÉL PRESUMIR	El niño presume su juguete nuevo.
+1109	ME-LA-VAS-A-PAGAR ME-LA-VAS-A-PAGAR YO AVISAR TI	Te aviso, me la vas a pagar.
+1110	CINE ADENTRO TÚ NO-DEBER HABLAR	Dentro del cine no debes hablar.
+1111	MI PRIMO+MUJER LEYES ELLA ESTUDIAR	Mi prima estudia leyes.
+1112	HOY YO CANSADO TRABAJO MUCHO	Hoy estoy cansado, trabajé mucho.
+1113	dm-IRENE ESPAÑA YA ELLA VIAJAR	Irene ya viajó a España.
+1114	AGUA SUCIA TÚ NO-DEBER BEBER	No debes beber agua sucia.
+1115	MI TÍO CAMPO ÉL TRABAJAR	Mi tío trabaja en el campo.
+1116	HOY SOL BRILLAR MUCHO	Hoy el sol brilla mucho.
+1117	YO CONTRASEÑA CORREO OLVIDAR	Olvidé la contraseña del correo.
+1118	¿TÚ DÓNDE VIVIR?	¿Dónde vives?
+1119	dm-ALEJANDRA CHEF PROFESIONAL	Alejandra es chef profesional.
+1120	AYER MI ABUELO HOSPITAL INGRESAR	Mi abuelo ingresó al hospital ayer.

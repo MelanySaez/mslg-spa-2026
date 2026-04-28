@@ -45,6 +45,11 @@ Thumbs.db
 *.log
 *.tmp
 
+# Residuos de COMET (TemporaryDirectory abortado)
+/hyp.txt
+/ref.txt
+/src.txt
+
 # NLTK data (se descarga en runtime)
 nltk_data/
 

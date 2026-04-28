@@ -1,7 +1,10 @@
-"""Orquestador enfoque7.2 — añade:
-  - dispatch de few_shot_rag_curriculum (heredado de enfoque7.1)
-  - integración de Self-Consistency (sc_n por experimento)
-  - uso del post_processor v2 (reglas determinísticas)
+"""Orquestador enfoque7.2 — pipeline reverso MSLG -> SPA.
+
+Clon estructural de enfoque7.1/experiment_runner.py, con los campos
+intercambiados (query=MSLG, target=SPA) y soporte para:
+  - métrica COMET (subtask MSLG2SPA),
+  - generación del archivo de submission .txt en el formato oficial de la
+    tarea MSLG-SPA 2026 (TeamName_SolutionName_MSLG2SPA.txt).
 """
 
 import csv
@@ -15,37 +18,19 @@ import data_loader
 import evaluator
 import post_processor
 import prompt_builder
-import self_consistency
 
 
-def _build_prompt(exp_type: str, k: int, spa: str,
-                  diverse_examples=None, emb_index=None):
-    if exp_type == "zero_shot":
-        return prompt_builder.build_zero_shot(spa)
-    if exp_type == "zero_shot_cot":
-        return prompt_builder.build_zero_shot_cot(spa)
-    if exp_type == "zero_shot_glossary":
-        return prompt_builder.build_zero_shot_glossary(spa)
-    if exp_type == "zero_shot_full":
-        return prompt_builder.build_zero_shot_full(spa)
-    if exp_type == "few_shot":
-        return prompt_builder.build_few_shot(spa, k=k)
-    if exp_type == "few_shot_cot":
-        return prompt_builder.build_few_shot_cot(spa, k=k)
-    if exp_type == "few_shot_negative":
-        return prompt_builder.build_few_shot_negative(spa, k=k)
-    if exp_type == "few_shot_curriculum":
-        return prompt_builder.build_few_shot_curriculum(spa, k=k)
-    if exp_type == "few_shot_diverse":
-        return prompt_builder.build_few_shot_diverse(spa, diverse_examples)
-    if exp_type == "few_shot_full":
-        return prompt_builder.build_few_shot_full(spa, k=k)
-    if exp_type == "few_shot_rag":
-        retrieved = emb_index.retrieve(spa, k=k)
-        return prompt_builder.build_few_shot_rag(spa, retrieved)
-    if exp_type == "few_shot_rag_curriculum":
-        retrieved = emb_index.retrieve(spa, k=k)
-        return prompt_builder.build_few_shot_rag_curriculum(spa, retrieved)
+def _build_prompt(exp_type: str, k: int, mslg: str, emb_index=None):
+    if exp_type == "zero_shot_reverse":
+        return prompt_builder.build_zero_shot(mslg)
+    if exp_type == "few_shot_reverse":
+        return prompt_builder.build_few_shot(mslg, k=k)
+    if exp_type == "few_shot_rag_reverse":
+        retrieved = emb_index.retrieve(mslg, k=k)
+        return prompt_builder.build_few_shot_rag(mslg, retrieved)
+    if exp_type == "few_shot_rag_curriculum_reverse":
+        retrieved = emb_index.retrieve(mslg, k=k)
+        return prompt_builder.build_few_shot_rag_curriculum(mslg, retrieved)
     raise ValueError(f"Tipo desconocido: {exp_type}")
 
 
@@ -53,46 +38,31 @@ def run_experiment(experiment: dict, pool: list, val: list, emb_index=None):
     exp_name = experiment["name"]
     exp_type = experiment["type"]
     k = experiment["k"]
-    sc_n = experiment.get("sc_n", 1)
-    needs_diverse = exp_type == "few_shot_diverse"
 
     print(f"\n{'='*60}")
-    print(f"  Experimento: {exp_name} (tipo={exp_type}, k={k}, sc_n={sc_n})")
+    print(f"  Experimento: {exp_name} (tipo={exp_type}, k={k})")
     print(f"  Modelo: {config.ANTHROPIC_MODEL} | cache={config.ENABLE_PROMPT_CACHE}")
-    if sc_n > 1:
-        print(f"  Self-Consistency: N={sc_n} @ temp={config.SC_TEMPERATURE}")
+    print(f"  Direccion: MSLG -> SPA")
     print(f"{'='*60}")
-
-    diverse_examples = None
-    if needs_diverse and emb_index is not None:
-        diverse_examples = emb_index.select_diverse(k=k)
 
     results = []
     start_time = time.time()
 
     for i, par in enumerate(val):
-        spa = par["spa"]
-        mslg_real = par["mslg"]
+        mslg = par["mslg"]
+        spa_real = par["spa"]
 
         system_prompt, user_prompt = _build_prompt(
-            exp_type, k, spa,
-            diverse_examples=diverse_examples,
-            emb_index=emb_index,
+            exp_type, k, mslg, emb_index=emb_index,
         )
-
-        if sc_n > 1:
-            raw_response, mslg_pred = self_consistency.translate_with_sc(
-                system_prompt, user_prompt, n=sc_n,
-            )
-        else:
-            raw_response = anthropic_client.translate(system_prompt, user_prompt)
-            mslg_pred = post_processor.clean(raw_response)
+        raw_response = anthropic_client.translate(system_prompt, user_prompt)
+        spa_pred = post_processor.clean(raw_response)
 
         results.append({
             "id": par["id"],
-            "spa": spa,
-            "mslg_real": mslg_real,
-            "mslg_pred": mslg_pred,
+            "mslg": mslg,
+            "spa_real": spa_real,
+            "spa_pred": spa_pred,
             "raw_response": raw_response,
         })
 
@@ -102,7 +72,7 @@ def run_experiment(experiment: dict, pool: list, val: list, emb_index=None):
         print(
             f"  [{exp_name}] {i+1}/{len(val)} "
             f"({elapsed:.0f}s, ~{remaining:.0f}s restantes) | "
-            f"SPA: {spa[:45]}... | PRED: {mslg_pred[:55]}"
+            f"MSLG: {mslg[:45]}... | PRED: {spa_pred[:55]}"
         )
 
     metrics = evaluator.evaluate(results)
@@ -112,9 +82,14 @@ def run_experiment(experiment: dict, pool: list, val: list, emb_index=None):
     print(f"  BLEU:   {metrics['bleu']:.4f}")
     print(f"  METEOR: {metrics['meteor']:.4f}")
     print(f"  chrF:   {metrics['chrf']:.4f}")
+    if metrics.get("comet") is not None:
+        print(f"  COMET:  {metrics['comet']:.4f}")
+    else:
+        print(f"  COMET:  N/A (la actividad la calcula sobre el .txt enviado)")
 
     _save_results_csv(results, exp_name)
     _save_metrics_json(metrics, exp_name, total_time)
+    _save_submission_txt(results, exp_name)
 
     return results, metrics
 
@@ -125,13 +100,13 @@ def run_all(experiments=None):
     pool, val = data_loader.split_dataset()
 
     need_embeddings = any(
-        e["type"] in ("few_shot_diverse", "few_shot_rag", "few_shot_rag_curriculum")
+        e["type"] in ("few_shot_rag_reverse", "few_shot_rag_curriculum_reverse")
         for e in experiments
     )
     emb_index = None
     if need_embeddings:
         import embedding_index as emb_mod
-        print("\nConstruyendo índice de embeddings (diverse / rag / rag-curriculum)...")
+        print("\nConstruyendo indice de embeddings sobre MSLG (rag/rag-curriculum)...")
         emb_index = emb_mod.EmbeddingIndex(pool)
 
     summary = []
@@ -148,7 +123,7 @@ def run_all(experiments=None):
 def _save_results_csv(results: list, exp_name: str):
     os.makedirs(config.RESULTS_DIR, exist_ok=True)
     path = os.path.join(config.RESULTS_DIR, f"{exp_name}_results.csv")
-    fieldnames = ["id", "spa", "mslg_real", "mslg_pred", "raw_response"]
+    fieldnames = ["id", "mslg", "spa_real", "spa_pred", "raw_response"]
     with open(path, "w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=fieldnames, extrasaction="ignore")
         writer.writeheader()
@@ -159,31 +134,61 @@ def _save_results_csv(results: list, exp_name: str):
 def _save_metrics_json(metrics: dict, exp_name: str, total_time: float):
     os.makedirs(config.RESULTS_DIR, exist_ok=True)
     path = os.path.join(config.RESULTS_DIR, f"{exp_name}_metrics.json")
-    data = {**metrics, "experiment": exp_name, "total_time_seconds": round(total_time, 1)}
+    data = {**metrics, "experiment": exp_name,
+            "total_time_seconds": round(total_time, 1)}
     with open(path, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
-    print(f"  Métricas guardadas:   {path}")
+    print(f"  Metricas guardadas:   {path}")
+
+
+def _save_submission_txt(results: list, exp_name: str):
+    """Genera archivo .txt en el formato oficial MSLG-SPA 2026 (subtask MSLG2SPA).
+
+    Formato (una línea por instancia, en el mismo orden que el archivo de test):
+      "SystemOutput"\\n
+    o, opcionalmente (con SUBMISSION_INCLUDE_ID=true):
+      "InstanceIdentifier"\\t"SystemOutput"\\n
+
+    Línea final con LF (\\n, formato Linux). Sin headers ni comentarios.
+    """
+    os.makedirs(config.RESULTS_DIR, exist_ok=True)
+    fname = f"{config.TEAM_NAME}_{config.SOLUTION_NAME}_{config.SUBTASK}.txt"
+    path = os.path.join(config.RESULTS_DIR, fname)
+
+    # write binary para forzar LF en Windows (sin convertir a CRLF)
+    with open(path, "wb") as f:
+        for r in results:
+            output = r["spa_pred"].replace("\n", " ").strip()
+            if config.SUBMISSION_INCLUDE_ID:
+                line = f'"{r["id"]}"\t"{output}"\n'
+            else:
+                line = f'"{output}"\n'
+            f.write(line.encode("utf-8"))
+    print(f"  Submission generada:  {path}")
 
 
 def _save_summary_csv(summary: list):
     os.makedirs(config.RESULTS_DIR, exist_ok=True)
     path = os.path.join(config.RESULTS_DIR, "summary.csv")
     with open(path, "w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=["name", "bleu", "meteor", "chrf"])
+        writer = csv.DictWriter(
+            f, fieldnames=["name", "bleu", "meteor", "chrf", "comet"])
         writer.writeheader()
         writer.writerows(summary)
     print(f"\nResumen guardado: {path}")
 
 
 def _print_summary(summary: list):
-    print(f"\n{'='*60}")
-    print(f"  RESUMEN — ENFOQUE 7.2 ({config.ANTHROPIC_MODEL})")
-    print(f"{'='*60}")
-    print(f"  {'Experimento':<32} {'BLEU':>8} {'METEOR':>8} {'chrF':>8}")
-    print(f"  {'-'*32} {'-'*8} {'-'*8} {'-'*8}")
+    print(f"\n{'='*70}")
+    print(f"  RESUMEN — ENFOQUE 7.2 reverso MSLG2SPA ({config.ANTHROPIC_MODEL})")
+    print(f"{'='*70}")
+    print(f"  {'Experimento':<40} {'BLEU':>7} {'METEOR':>7} {'chrF':>7} {'COMET':>7}")
+    print(f"  {'-'*40} {'-'*7} {'-'*7} {'-'*7} {'-'*7}")
     for row in summary:
+        comet_str = (f"{row['comet']:>7.4f}" if row.get("comet") is not None
+                     else f"{'N/A':>7}")
         print(
-            f"  {row['name']:<32} {row['bleu']:>8.4f} "
-            f"{row['meteor']:>8.4f} {row['chrf']:>8.4f}"
+            f"  {row['name']:<40} {row['bleu']:>7.4f} "
+            f"{row['meteor']:>7.4f} {row['chrf']:>7.4f} {comet_str}"
         )
-    print(f"{'='*60}")
+    print(f"{'='*70}")

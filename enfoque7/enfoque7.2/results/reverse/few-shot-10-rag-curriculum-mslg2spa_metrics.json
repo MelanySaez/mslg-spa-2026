@@ -1,0 +1,8 @@
+{
+  "bleu": 0.40729304587003845,
+  "meteor": 0.6814874652675879,
+  "chrf": 0.7492651999912078,
+  "comet": 0.9003634982638888,
+  "experiment": "few-shot-10-rag-curriculum-mslg2spa",
+  "total_time_seconds": 286.4
+}

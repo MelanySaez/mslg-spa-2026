@@ -1,10 +1,11 @@
-"""Configuración enfoque7.2 — plan de escalado en 3 pasos sobre
-few_shot_rag_curriculum.
+"""Configuración enfoque7.2 — pipeline reverso MSLG → SPA.
 
-Hereda de enfoque7/config.py. Sobreescribe:
-  - RESULTS_DIR → enfoque7.2/results/scaling/
-  - EXPERIMENTS → sweep de k (8, 10, 12, 15) + mejor-k con Self-Consistency N=3.
-  - SC_TEMPERATURE → temperatura para llamadas con Self-Consistency.
+Hereda de enfoque7/config.py (modelo, claves API, dataset, splits, seed) y
+sobreescribe RESULTS_SUBDIR + EXPERIMENTS para correr la versión reversa del
+mejor experimento de 7.1: few-shot-10-rag-curriculum aplicado a MSLG → SPA.
+
+El split es idéntico al de 7.1 (mismo pool y val por seed), así los IDs
+evaluados coinciden y el conjunto es directamente comparable cara a cara.
 """
 
 import importlib.util
@@ -16,7 +17,7 @@ _spec = importlib.util.spec_from_file_location("enfoque7_config", _e7_config)
 _c = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(_c)
 
-# Re-export de enfoque7/config.py
+# Re-export de constantes de enfoque7/config.py
 ANTHROPIC_API_KEY = _c.ANTHROPIC_API_KEY
 ANTHROPIC_MODEL = _c.ANTHROPIC_MODEL
 TEMPERATURE = _c.TEMPERATURE
@@ -33,22 +34,34 @@ SUBMISSIONS_DIR = _c.SUBMISSIONS_DIR
 
 # ── Overrides ─────────────────────────────────────────────────────────────────
 BASE_DIR = _here
-RESULTS_SUBDIR = os.environ.get("RESULTS_SUBDIR", "scaling")
+RESULTS_SUBDIR = os.environ.get("RESULTS_SUBDIR", "reverse")
 RESULTS_DIR = os.path.join(BASE_DIR, "results", RESULTS_SUBDIR)
 
-# Self-Consistency: temperature para las N llamadas.
-SC_TEMPERATURE = float(os.environ.get("SC_TEMPERATURE", "0.3"))
+# Dirección de traducción: este enfoque usa MSLG como query y SPA como target.
+DIRECTION = "mslg2spa"
 
-# Matriz de escalado:
-#   Paso 1: sweep de k (8, 10, 12, 15) sobre rag_curriculum con post-proc v2.
-#   Paso 2: post_processor v2 se aplica automáticamente a TODOS (hard rules).
-#   Paso 3: Self-Consistency N=3 sobre k=10 (ampliable tras ver resultados).
+# ── Submission MSLG-SPA 2026 ──────────────────────────────────────────────────
+# Subtask oficial: MSLG2SPA (Gloss-to-Spanish). Métricas: BLEU, METEOR, chrF,
+# COMET. La salida .txt sigue el formato 'TeamName_SolutionName_MSLG2SPA.txt'.
+SUBTASK = "MSLG2SPA"
+TEAM_NAME = os.environ.get("TEAM_NAME", "PrismaticVision")
+SOLUTION_NAME = os.environ.get("SOLUTION_NAME", "FewShot10RagCurriculum")
+# Si True, anteponer el ID en la línea como mecanismo de verificación opcional.
+SUBMISSION_INCLUDE_ID = os.environ.get(
+    "SUBMISSION_INCLUDE_ID", "false").lower() == "true"
+
+# ── COMET (solo MSLG2SPA según la actividad) ─────────────────────────────────
+# COMET 2.x choca con pandas>=3 / torch>=2 dentro del proyecto, así que se
+# invoca el CLI 'comet-score' (instalado vía 'uv tool install unbabel-comet').
+ENABLE_COMET = os.environ.get("ENABLE_COMET", "true").lower() == "true"
+COMET_MODEL = os.environ.get("COMET_MODEL", "Unbabel/wmt22-comet-da")
+COMET_BATCH_SIZE = int(os.environ.get("COMET_BATCH_SIZE", "8"))
+COMET_BIN = os.environ.get("COMET_BIN", "comet-score")
+COMET_GPUS = int(os.environ.get("COMET_GPUS", "0"))
+
+# Único experimento: réplica del ganador de 7.1 en sentido reverso.
 EXPERIMENTS = [
-    # Paso 1 — sweep de k
-    {"name": "rag-curriculum-k8",      "type": "few_shot_rag_curriculum", "k": 8,  "sc_n": 1},
-    {"name": "rag-curriculum-k10",     "type": "few_shot_rag_curriculum", "k": 10, "sc_n": 1},
-    {"name": "rag-curriculum-k12",     "type": "few_shot_rag_curriculum", "k": 12, "sc_n": 1},
-    {"name": "rag-curriculum-k15",     "type": "few_shot_rag_curriculum", "k": 15, "sc_n": 1},
-    # Paso 3 — Self-Consistency sobre k=10 (ajusta manualmente si otro k gana)
-    {"name": "rag-curriculum-k10-sc3", "type": "few_shot_rag_curriculum", "k": 10, "sc_n": 3},
+    {"name": "few-shot-10-rag-curriculum-mslg2spa",
+     "type": "few_shot_rag_curriculum_reverse",
+     "k": 10},
 ]

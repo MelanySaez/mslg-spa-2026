@@ -106,6 +106,7 @@ def run_experiment(experiment: dict, pool: list, val: list, emb_index=None):
 
     _save_results_csv(results, exp_name)
     _save_metrics_json(metrics, exp_name, total_time)
+    _save_submission_txt(results, exp_name)
 
     return results, metrics
 
@@ -154,6 +155,32 @@ def _save_metrics_json(metrics: dict, exp_name: str, total_time: float):
     with open(path, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
     print(f"  Métricas guardadas:   {path}")
+
+
+def _save_submission_txt(results: list, exp_name: str):
+    """Genera archivo .txt en el formato oficial MSLG-SPA 2026 (subtask SPA2MSLG).
+
+    Formato (una línea por instancia, en el mismo orden que el archivo de test):
+      "SystemOutput"\\n
+    o, opcionalmente (con SUBMISSION_INCLUDE_ID=true):
+      "InstanceIdentifier"\\t"SystemOutput"\\n
+
+    Línea final con LF (\\n, formato Linux). Sin headers ni comentarios.
+    """
+    os.makedirs(config.RESULTS_DIR, exist_ok=True)
+    fname = f"{config.TEAM_NAME}_{config.SOLUTION_NAME}_{config.SUBTASK}.txt"
+    path = os.path.join(config.RESULTS_DIR, fname)
+
+    # write binary para forzar LF en Windows (sin convertir a CRLF)
+    with open(path, "wb") as f:
+        for r in results:
+            output = r["mslg_pred"].replace("\n", " ").strip()
+            if config.SUBMISSION_INCLUDE_ID:
+                line = f'"{r["id"]}"\t"{output}"\n'
+            else:
+                line = f'"{output}"\n'
+            f.write(line.encode("utf-8"))
+    print(f"  Submission generada:  {path}")
 
 
 def _save_summary_csv(summary: list):

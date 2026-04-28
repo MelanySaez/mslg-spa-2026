@@ -1,4 +1,9 @@
-"""Shim a enfoque7/data_loader.py."""
+"""Shim a enfoque7/data_loader.py.
+
+Reusa el split SPA/MSLG idéntico al de 7.1 (mismo seed, mismo pool, mismo val).
+Esto garantiza que las métricas reversas se computan sobre los mismos IDs que
+la baseline directa, permitiendo comparación uno-a-uno.
+"""
 
 import importlib.util
 import os

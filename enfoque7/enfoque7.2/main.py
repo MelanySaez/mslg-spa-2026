@@ -1,8 +1,9 @@
-"""Entry point — Enfoque 7.2: Plan de escalado en 3 pasos.
+"""Entry point — Enfoque 7.2: pipeline reverso MSLG -> SPA (Claude Haiku 4.5).
 
-Paso 1 — sweep de k (8, 10, 12, 15) sobre few_shot_rag_curriculum.
-Paso 2 — post_processor v2 con reglas determinísticas (aplicado a todos).
-Paso 3 — Self-Consistency N=3 sobre la variante k=10 (ajustable tras ver paso 1).
+Replica el mejor experimento de 7.1 (few-shot-10-rag-curriculum) en sentido
+inverso: dada una glosa MSLG, generar la oracion en espanol natural.
+Usa el mismo split (mismo seed, mismo pool, mismo val) para que las metricas
+sean directamente comparables a la tarea SPA -> MSLG de 7.1.
 """
 
 import logging
@@ -25,19 +26,19 @@ def main():
     if not config.ANTHROPIC_API_KEY:
         print(
             "ERROR: ANTHROPIC_API_KEY no definida.\n"
-            "Crea .env en enfoque7/ o en la raíz del proyecto con:\n"
+            "Crea .env en enfoque7/ (heredado) o en la raiz del proyecto con:\n"
             "  ANTHROPIC_API_KEY=sk-ant-...",
             file=sys.stderr,
         )
         sys.exit(1)
 
     print("=" * 60)
-    print("  Pipeline SPA → MSLG — Enfoque 7.2")
+    print("  Pipeline MSLG -> SPA — Enfoque 7.2 (reverso)")
     print(f"  Modelo: {config.ANTHROPIC_MODEL}")
     print(f"  Prompt caching: {config.ENABLE_PROMPT_CACHE}")
-    print(f"  Post-processor: v2 (preserva dm-, normaliza PORQUÉ, elimina cópula)")
+    print(f"  Dataset: {config.DATASET_PATH}")
     print(f"  Results dir: {config.RESULTS_DIR}")
-    print(f"  Experimentos: {len(config.EXPERIMENTS)} (sweep k + SC)")
+    print("  Experimento: few-shot-10-rag-curriculum-mslg2spa")
     print("=" * 60)
 
     experiment_runner.run_all()

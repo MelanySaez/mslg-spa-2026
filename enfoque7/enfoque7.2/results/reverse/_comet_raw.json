@@ -1,0 +1,544 @@
+{
+  "C:\\Users\\usuario\\AppData\\Local\\Temp\\tmpnih4gvb4\\hyp.txt": [
+    {
+      "src": "OTRO LIBRO YO TENER",
+      "mt": "Tengo otro libro.",
+      "ref": "Tengo otro libro.",
+      "COMET": 0.98486328125
+    },
+    {
+      "src": "dm-SANTIAGO MONEDA GUARDAR-BOLSILLO",
+      "mt": "Santiago guarda la moneda en el bolsillo.",
+      "ref": "Santiago guarda en su bolsillo una moneda.",
+      "COMET": 0.88818359375
+    },
+    {
+      "src": "DELEGACIÓN YO YA IR ACTA LEVANTAR",
+      "mt": "Ya fui a la delegación a levantar un acta.",
+      "ref": "Yo fui a levantar un acta a la delegación.",
+      "COMET": 0.875
+    },
+    {
+      "src": "SOPA CALIENTE",
+      "mt": "La sopa está caliente.",
+      "ref": "La sopa está caliente.",
+      "COMET": 0.97607421875
+    },
+    {
+      "src": "TÚ DEBER SEGUIR ESTUDIAR",
+      "mt": "Debes seguir estudiando.",
+      "ref": "Debes seguir estudiando.",
+      "COMET": 0.984375
+    },
+    {
+      "src": "TODO AFORTUNADO",
+      "mt": "Todo es afortunado.",
+      "ref": "Tú eres muy afortunado en todo.",
+      "COMET": 0.87939453125
+    },
+    {
+      "src": "CREDENCIAL VOTAR HABER MI HUELLA",
+      "mt": "Mi credencial de votación tiene mi huella.",
+      "ref": "La credencial del INE tiene mi huella.",
+      "COMET": 0.81005859375
+    },
+    {
+      "src": "TU INE TÚ DEBER MOSTRAR PARA PERMISO PASAR",
+      "mt": "Debes mostrar tu INE para obtener permiso de paso.",
+      "ref": "Debes mostrar tu INE para poder pasar.",
+      "COMET": 0.87548828125
+    },
+    {
+      "src": "VILLAHERMOSA MUCHO CALOR",
+      "mt": "En Villahermosa hace mucho calor.",
+      "ref": "En Villahermosa hace mucho calor.",
+      "COMET": 0.97509765625
+    },
+    {
+      "src": "MAÑANA LIVERPOOL HABER DESCUENTO BOLSA-MANO",
+      "mt": "Mañana en Liverpool hay descuento en bolsas de mano.",
+      "ref": "Mañana habrá descuentos en bolsas de mano en Liverpool.",
+      "COMET": 0.91943359375
+    },
+    {
+      "src": "MI PAPÁ CINTURÓN YO REGALAR ÉL",
+      "mt": "Mi papá me regaló un cinturón.",
+      "ref": "Le regalé un cinturón a mi papá.",
+      "COMET": 0.89990234375
+    },
+    {
+      "src": "YO ESTUDIAR HASTA SECUNDARIA DESPUES TRABAJAR YO DESEAR",
+      "mt": "Estudié hasta secundaria y después deseaba trabajar.",
+      "ref": "Voy a estudiar hasta secundaria y después quiero trabajar.",
+      "COMET": 0.91015625
+    },
+    {
+      "src": "AYER MI HERMANO PASTEL ÉL DAR MÍ",
+      "mt": "Ayer mi hermano me dio un pastel.",
+      "ref": "Mi hermano no me dio pastel ayer.",
+      "COMET": 0.84130859375
+    },
+    {
+      "src": "AUDÍFONOS TÚ TENER, ¿PRESTAR? SÍ NO",
+      "mt": "¿Me prestas los audífonos que tienes, sí o no?",
+      "ref": "Tú tienes unos audífonos, ¿me los prestas?",
+      "COMET": 0.8876953125
+    },
+    {
+      "src": "MI AMIGO ARGENTINA ANTROPOLOGÍA ELLOS ESTUDIAR YA",
+      "mt": "Mis amigos en Argentina ya estudian antropología.",
+      "ref": "Mis amigos argentinos estudiaron antropología.",
+      "COMET": 0.904296875
+    },
+    {
+      "src": "TUYO SOBRINO ATRÁS MI ESPOSO",
+      "mt": "Tu sobrino está detrás de mi esposo.",
+      "ref": "Tu sobrino está atrás de mi esposo.",
+      "COMET": 0.91650390625
+    },
+    {
+      "src": "COMERCIAL MEXICANA YO COMPRAR CENA NAVIDAD",
+      "mt": "Compré la cena de Navidad en Comercial Mexicana.",
+      "ref": "Compraré la cena de Navidad en la Comercial Mexicana.",
+      "COMET": 0.89501953125
+    },
+    {
+      "src": "SEMÁFORO LUZ ROJA YO PASAR AHORA MULTA YO DEBER PAGAR",
+      "mt": "Pasé el semáforo en rojo y ahora debo pagar una multa.",
+      "ref": "Me pasé un semáforo, ahora tengo que pagar una multa.",
+      "COMET": 0.90576171875
+    },
+    {
+      "src": "dm-ALICIA YA VIAJAR SUDÁFRICA",
+      "mt": "Alicia ya viajó a Sudáfrica.",
+      "ref": "Alicia viajó a Sudáfrica.",
+      "COMET": 0.9267578125
+    },
+    {
+      "src": "CUBA CALOR",
+      "mt": "En Cuba hace calor.",
+      "ref": "En Cuba hace mucho calor",
+      "COMET": 0.951171875
+    },
+    {
+      "src": "ENTRAR ANIMAL NIÑO VER MONO",
+      "mt": "El niño vio entrar un mono al lugar.",
+      "ref": "El niño ve un mono en el zoológico.",
+      "COMET": 0.7763671875
+    },
+    {
+      "src": "FRASCO DULCES NO-HAY",
+      "mt": "No hay dulces en el frasco.",
+      "ref": "No hay dulces en el frasco.",
+      "COMET": 0.9599609375
+    },
+    {
+      "src": "YO IR TIENDA COMPRAR JABÓN YA",
+      "mt": "Fui a la tienda a comprar jabón.",
+      "ref": "Fui a comprar jabón a la tienda.",
+      "COMET": 0.951171875
+    },
+    {
+      "src": "AYER COCA-COLA YO COMPRAR",
+      "mt": "Ayer compré una Coca-Cola.",
+      "ref": "Yo compré una Coca Cola ayer.",
+      "COMET": 0.8935546875
+    },
+    {
+      "src": "FRONTERA TIJUANA MÍ TÍO VIVIR",
+      "mt": "Mi tío vive en la frontera de Tijuana.",
+      "ref": "Mi tío vive en la frontera, en Tijuana.",
+      "COMET": 0.9111328125
+    },
+    {
+      "src": "ESO FEO PARECE VULGAR",
+      "mt": "Eso parece feo y vulgar.",
+      "ref": "Eso es feo, parece vulgar.",
+      "COMET": 0.95458984375
+    },
+    {
+      "src": "POLICÍA AGENTE NOSOTROS PROTEGER MÍ",
+      "mt": "El agente de policía nos protege.",
+      "ref": "La policia judicial nos protege.",
+      "COMET": 0.8720703125
+    },
+    {
+      "src": "ESO BONITO SÍ YO GUSTAR",
+      "mt": "Eso es bonito, sí me gusta.",
+      "ref": "Eso es muy bonito, sí me gusta.",
+      "COMET": 0.97314453125
+    },
+    {
+      "src": "ALGUNAS PERSONAS ANALFABETO",
+      "mt": "Algunas personas son analfabetas.",
+      "ref": "Algunas personas son analfabetas.",
+      "COMET": 0.986328125
+    },
+    {
+      "src": "ÁFRICA ADENTRO GHANA",
+      "mt": "Ghana está en África.",
+      "ref": "Ghana está en África.",
+      "COMET": 0.984375
+    },
+    {
+      "src": "TIENDA CERCA DOS CUADRAS",
+      "mt": "La tienda está a dos cuadras de aquí.",
+      "ref": "La tienda más cercana está a dos cuadras.",
+      "COMET": 0.84912109375
+    },
+    {
+      "src": "ADÁN PRIMER HOMBRE MUNDO DIOS HACER",
+      "mt": "Adán fue el primer hombre del mundo que Dios creó.",
+      "ref": "Adán es el primer hombre creado por Dios en el mundo.",
+      "COMET": 0.88525390625
+    },
+    {
+      "src": "YO VIAJE FRANCIA YO EMOCIONAR YA",
+      "mt": "Ya me emocioné con mi viaje a Francia.",
+      "ref": "Mi viaje a Francia me emocionó.",
+      "COMET": 0.7998046875
+    },
+    {
+      "src": "MÉXICO BIBLIOTECA GRANDE",
+      "mt": "La biblioteca de México es grande.",
+      "ref": "La Biblioteca de México es muy grande.",
+      "COMET": 0.93701171875
+    },
+    {
+      "src": "JUGUETE MI AHIJADO YO REGALAR ÉL YA",
+      "mt": "Ya le regalé un juguete a mi ahijado.",
+      "ref": "Le regalé un juguete a mi ahijado.",
+      "COMET": 0.900390625
+    },
+    {
+      "src": "SU #SEP CALENDARIO AGOSTO TERMINAR",
+      "mt": "El calendario de la SEP termina en agosto.",
+      "ref": "El calendario de la SEP termina en agosto.",
+      "COMET": 0.97607421875
+    },
+    {
+      "src": "SENADOR GASOLINA AUMENTAR PORQUÉ ÉL EXPLICAR",
+      "mt": "El senador explica por qué aumentó la gasolina.",
+      "ref": "El senador explica por qué la gasolina está cara.",
+      "COMET": 0.8828125
+    },
+    {
+      "src": "dm-AIMÉ SALTAR PARACAIDAS",
+      "mt": "Aimé se lanza en paracaídas.",
+      "ref": "Aimé saltó en paracaídas.",
+      "COMET": 0.859375
+    },
+    {
+      "src": "FÁCIL APRENDER LETRA ABECEDARIO",
+      "mt": "Es fácil aprender las letras del abecedario.",
+      "ref": "Es fácil aprender las letras del abecedario.",
+      "COMET": 0.9697265625
+    },
+    {
+      "src": "NUESTRA CITA LUGAR TAXQUEÑA",
+      "mt": "Nuestra cita es en un lugar taxqueño.",
+      "ref": "Nuestra cita es en Taxqueña.",
+      "COMET": 0.74365234375
+    },
+    {
+      "src": "POLVO YO MUCHO ESTORNUDAR",
+      "mt": "El polvo me hace estornudar mucho.",
+      "ref": "Con mucho polvo, yo estornudo mucho.",
+      "COMET": 0.798828125
+    },
+    {
+      "src": "DISFRAZ HACER. PAPEL",
+      "mt": "Hacemos disfraces. El papel.",
+      "ref": "El disfraz está hecho de papel",
+      "COMET": 0.55712890625
+    },
+    {
+      "src": "DIARIO MI HERMANO AGENDA REVISAR",
+      "mt": "Mi hermano revisa su agenda diariamente.",
+      "ref": "Mi hermano revisa su agenda diario.",
+      "COMET": 0.9150390625
+    },
+    {
+      "src": "CELAYA MI FAMILIA NOSOTROS-DE-DOS YA IR",
+      "mt": "Mi familia y yo ya fuimos a Celaya.",
+      "ref": "MI Mí familia y yo fuimos a Celaya.",
+      "COMET": 0.884765625
+    },
+    {
+      "src": "AMETRALLADORA DIFERENTE YO NO-GUSTAR",
+      "mt": "No me gustan las diferentes ametralladoras.",
+      "ref": "A mí no me gustan las ametralladoras.",
+      "COMET": 0.7724609375
+    },
+    {
+      "src": "NOCHE MENSAJEAR WHATSAPP TÚ MANDAR MÍ",
+      "mt": "Anoche me mandaste un mensaje por WhatsApp.",
+      "ref": "Me mandas un mensaje de whatsapp en la noche.",
+      "COMET": 0.7705078125
+    },
+    {
+      "src": "SÍ YO GUSTAR JUGAR BOLICHE",
+      "mt": "Sí, me gusta jugar boliche.",
+      "ref": "A mí sí me gusta jugar boliche.",
+      "COMET": 0.89892578125
+    },
+    {
+      "src": "dm-JUAN GABRIEL NACER CIUDAD JUÁREZ",
+      "mt": "Juan Gabriel nació en Ciudad Juárez.",
+      "ref": "Juan Gabriel nació en Ciudad Juárez.",
+      "COMET": 0.97802734375
+    },
+    {
+      "src": "CASA AZOTEAarriba YO LIMPIAR YA",
+      "mt": "Ya limpié la azotea de la casa.",
+      "ref": "Yo limpié la azotea de la casa.",
+      "COMET": 0.8125
+    },
+    {
+      "src": "AYER YO YA IR GALERÍA",
+      "mt": "Ayer ya fui a la galería.",
+      "ref": "Ayer fui a la galería.",
+      "COMET": 0.93017578125
+    },
+    {
+      "src": "SIEMPRE MI FAMILIA TELETÓN DONAR DONAR",
+      "mt": "Mi familia siempre dona mucho a Teletón.",
+      "ref": "Mi familia siempre dona a Teletón.",
+      "COMET": 0.96044921875
+    },
+    {
+      "src": "YO NECESITAR PAPEL PARA AGUA ABSORBER",
+      "mt": "Necesito papel para absorber el agua.",
+      "ref": "Necesito papel para absorber el agua.",
+      "COMET": 0.97705078125
+    },
+    {
+      "src": "DIARIO MI VECINO IR ALCOHÓLICOS-ANÓNIMOS",
+      "mt": "Mi vecino va a Alcohólicos Anónimos todos los días.",
+      "ref": "Mi vecino va diario a Alcohólicos Anónimos.",
+      "COMET": 0.93359375
+    },
+    {
+      "src": "MI HERMANO SUYA NOVIO+MUJER SEPARAR YA",
+      "mt": "Mi hermano ya se separó de su novia.",
+      "ref": "Mi hermano terminó con su novia.",
+      "COMET": 0.8466796875
+    },
+    {
+      "src": "AYER ESTE CELULAR YO YA COMPRAR PERO CORRIENTE",
+      "mt": "Ayer compré este celular pero no funciona bien.",
+      "ref": "Compré este celular ayer pero está muy corriente.",
+      "COMET": 0.833984375
+    },
+    {
+      "src": "FRESAS CON CREMA YO GUSTAR",
+      "mt": "Me gustan las fresas con crema.",
+      "ref": "Me gustan las fresas con crema.",
+      "COMET": 0.9716796875
+    },
+    {
+      "src": "AÑO-PASADO YO VIAJAR GUANAJUATO",
+      "mt": "El año pasado viajé a Guanajuato.",
+      "ref": "El año pasado viajé a Guanajuato.",
+      "COMET": 0.97802734375
+    },
+    {
+      "src": "MI PRIMO UNIVERSIDAD YA INGRESAR",
+      "mt": "Mi primo ya ingresó a la universidad.",
+      "ref": "Mi primo ingresó a la universidad.",
+      "COMET": 0.94482421875
+    },
+    {
+      "src": "MUCHOS POLICÍA HABER MANIFESTACIÓN",
+      "mt": "Hay muchos policías en la manifestación.",
+      "ref": "Hay muchos policías en la manifestación.",
+      "COMET": 0.97412109375
+    },
+    {
+      "src": "REFRIGERADOR HABER COMIDA CADUCADA",
+      "mt": "En el refrigerador hay comida caducada.",
+      "ref": "En el refrigerador hay comida caducada.",
+      "COMET": 0.9697265625
+    },
+    {
+      "src": "¿Y-ESO?",
+      "mt": "¿Y eso?",
+      "ref": "¿Y eso?",
+      "COMET": 0.99365234375
+    },
+    {
+      "src": "INDIA SÉPTIMO PAÍS MÁS GRANDE MUNDO",
+      "mt": "India es el séptimo país más grande del mundo.",
+      "ref": "La India es el séptimo país más grande del mundo.",
+      "COMET": 0.97509765625
+    },
+    {
+      "src": "HOMBRE GOBERNADOR PUBLICIDAD COLOCAR COLOCAR CALLES",
+      "mt": "El gobernador coloca publicidad en las calles.",
+      "ref": "El gobernador colocó mucha publicidad por las calles.",
+      "COMET": 0.85498046875
+    },
+    {
+      "src": "ODONTOLOGÍA YO PENSAR ESTUDIAR",
+      "mt": "Estoy pensando en estudiar odontología.",
+      "ref": "Pienso estudiar odontología.",
+      "COMET": 0.92724609375
+    },
+    {
+      "src": "ELLA TENER LUNAR BONITO",
+      "mt": "Ella tiene un lunar bonito.",
+      "ref": "Ella tiene una lunar bonito.",
+      "COMET": 0.93408203125
+    },
+    {
+      "src": "YO YA GANAR CAMPEONATO",
+      "mt": "Yo ya gané el campeonato.",
+      "ref": "Yo gané el campeonato.",
+      "COMET": 0.92822265625
+    },
+    {
+      "src": "MI NOVIO NACER LUGAR ARGENTINA",
+      "mt": "Mi novio nació en Argentina.",
+      "ref": "Mi novio nació en Argentina.",
+      "COMET": 0.97509765625
+    },
+    {
+      "src": "¿CÓMO SEÑA dm-APÓSTOLES?",
+      "mt": "¿Cómo se señan los apóstoles?",
+      "ref": "¿Cómo haces la seña de apóstoles?",
+      "COMET": 0.8193359375
+    },
+    {
+      "src": "YO TENER TRABAJO YA CONTENTO YO",
+      "mt": "Yo ya tengo trabajo y estoy contento.",
+      "ref": "Ya tengo trabajo, estoy contento.",
+      "COMET": 0.958984375
+    },
+    {
+      "src": "SEXTO-Primaria MI HIJO YA REPROBAR",
+      "mt": "Mi hijo ya reprobó sexto de primaria.",
+      "ref": "Mi hijo reprobó el sexto de primaria.",
+      "COMET": 0.89599609375
+    },
+    {
+      "src": "LLOVER TARDE PARECE",
+      "mt": "Parece que lloverá por la tarde.",
+      "ref": "Al parecer va a llover en la tarde.",
+      "COMET": 0.84130859375
+    },
+    {
+      "src": "YA ÉL ARRESTADO ESO FEO VERDAD",
+      "mt": "Ya lo arrestaron, eso es feo verdad.",
+      "ref": "Él fue arrestado, qué feo.",
+      "COMET": 0.79443359375
+    },
+    {
+      "src": "MI SOBRINO ALTO",
+      "mt": "Mi sobrino es alto.",
+      "ref": "Mi sobrino es muy alto.",
+      "COMET": 0.7763671875
+    },
+    {
+      "src": "PRÓXIMO VACACIONES YO VIAJAR CIUDAD-OBREGÓN",
+      "mt": "El próximo período de vacaciones viajaré a Ciudad Obregón.",
+      "ref": "Las próximas vacaciones iré de viaje a Ciudad Obregón.",
+      "COMET": 0.9033203125
+    },
+    {
+      "src": "IGLESIA NOSOTROS-DE-DOS DECIR AMÉN",
+      "mt": "En la iglesia nosotros dos decimos amén.",
+      "ref": "En la iglesia decimos amén.",
+      "COMET": 0.89404296875
+    },
+    {
+      "src": "AYER NOCHE METRO CAOS",
+      "mt": "Ayer por la noche el metro estaba en caos.",
+      "ref": "Anoche el metro era un caos.",
+      "COMET": 0.8193359375
+    },
+    {
+      "src": "LUGAR FABRICA SABRITAS HAY TRABAJO PARA PERSONAS",
+      "mt": "En la fábrica de Sabritas hay trabajo para las personas.",
+      "ref": "En la fábrica de Sabritas buscan personal para trabajar.",
+      "COMET": 0.8271484375
+    },
+    {
+      "src": "ALBERCA YO NADAR",
+      "mt": "Nado en la alberca.",
+      "ref": "Yo nado en la alberca.",
+      "COMET": 0.8486328125
+    },
+    {
+      "src": "MAESTRO ALUMNOS REUNIÓN APARTE",
+      "mt": "El maestro se reúne aparte con los alumnos.",
+      "ref": "El maestro se reunió aparte con sus alumnos.",
+      "COMET": 0.90478515625
+    },
+    {
+      "src": "YO YA CONVENCER MI AMIGO IR FIESTA",
+      "mt": "Ya convencí a mi amigo para que fuera a la fiesta.",
+      "ref": "Convencí a mi amigo de ir a la fiesta.",
+      "COMET": 0.9013671875
+    },
+    {
+      "src": "MI PUERTA COLOR AZUL YO YA PINTAR",
+      "mt": "Ya pinté mi puerta de color azul.",
+      "ref": "Pinté mi puerta de color azul.",
+      "COMET": 0.9462890625
+    },
+    {
+      "src": "AUSTRÍA SU PAÍS HERMOSO",
+      "mt": "Austria es un país hermoso.",
+      "ref": "Austria es un país hermoso.",
+      "COMET": 0.98291015625
+    },
+    {
+      "src": "DIARIO YO MANEJAR CARRO YO DEBER PONER-GASOLINA",
+      "mt": "Diariamente manejo el carro y debo ponerle gasolina.",
+      "ref": "Diario manejo mi auto, debo ponerle gasolina.",
+      "COMET": 0.8759765625
+    },
+    {
+      "src": "¡CAFÉ CALIENTE!",
+      "mt": "¡Café caliente!",
+      "ref": "¡El café está muy caliente!",
+      "COMET": 0.91455078125
+    },
+    {
+      "src": "AÑO-PASADO DICIEMBRE BOGOTÁ MÍ JEFE VIAJAR",
+      "mt": "El año pasado en diciembre mi jefe viajó a Bogotá.",
+      "ref": "En diciembre del año pasado, mi jefe viajó a Bogotá.",
+      "COMET": 0.9404296875
+    },
+    {
+      "src": "MI HIJO YO ABANDONAR",
+      "mt": "Abandoné a mi hijo.",
+      "ref": "Yo abandoné a mi hijo.",
+      "COMET": 0.86083984375
+    },
+    {
+      "src": "ÉL DESEAR CONQUISTAR ELLA MUJER PERO MIEDO ELLA ABANDONAR",
+      "mt": "Él desea conquistar a esa mujer pero tiene miedo de que ella lo abandone.",
+      "ref": "Él desea conquistar a una mujer, pero tiene miedo de que lo abandonen.",
+      "COMET": 0.91015625
+    },
+    {
+      "src": "TEPITO LUGAR FAMOSO",
+      "mt": "Tepito es un lugar famoso.",
+      "ref": "Tepito es un lugar muy conocido.",
+      "COMET": 0.93896484375
+    },
+    {
+      "src": "10 MAÑANA NOS-VEMOS METRO CHABACANO",
+      "mt": "Nos vemos mañana a las 10 en el metro Chabacano.",
+      "ref": "Nos vemos en el metro chabacano a las 10 de la mañana",
+      "COMET": 0.89697265625
+    },
+    {
+      "src": "HOY CUMPLEAÑOS MÍ",
+      "mt": "Hoy es mi cumpleaños.",
+      "ref": "Hoy es mi cumpleaños.",
+      "COMET": 0.984375
+    }
+  ]
+}

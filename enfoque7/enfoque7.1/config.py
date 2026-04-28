@@ -31,6 +31,17 @@ BASE_DIR = _here
 RESULTS_SUBDIR = os.environ.get("RESULTS_SUBDIR", "rag-curriculum")
 RESULTS_DIR = os.path.join(BASE_DIR, "results", RESULTS_SUBDIR)
 
+# ── Submission MSLG-SPA 2026 ──────────────────────────────────────────────────
+# Subtask oficial: SPA2MSLG (Spanish-to-Gloss). Métricas: BLEU, METEOR, chrF
+# (COMET NO aplica en este subtask por las reglas de la actividad).
+# La salida .txt sigue el formato 'TeamName_SolutionName_SPA2MSLG.txt'.
+DIRECTION = "spa2mslg"
+SUBTASK = "SPA2MSLG"
+TEAM_NAME = os.environ.get("TEAM_NAME", "PrismaticVision")
+SOLUTION_NAME = os.environ.get("SOLUTION_NAME", "FewShot10RagCurriculum")
+SUBMISSION_INCLUDE_ID = os.environ.get(
+    "SUBMISSION_INCLUDE_ID", "false").lower() == "true"
+
 # Un único experimento: híbrido RAG + curriculum k=10
 EXPERIMENTS = [
     {"name": "few-shot-10-rag-curriculum",

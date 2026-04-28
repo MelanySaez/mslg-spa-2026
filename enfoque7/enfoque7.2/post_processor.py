@@ -1,104 +1,96 @@
-"""Post-processor v2 — reglas determinísticas sobre la salida cruda del LLM.
+"""Post-procesamiento para salidas SPA del modelo (sentido reverso).
 
-Mejoras sobre enfoque3/post_processor.py:
-  1. Preserva el prefijo dm- en minúscula (el .upper() del v1 lo destruía).
-  2. Normaliza POR-QUÉ (con guión) → PORQUÉ (junto), alineado al corpus.
-  3. Elimina tokens residuales de cópula (SER, ESTAR, SOY, ERES, ES, ESTÁ, FUE,
-     ERA) que no deben aparecer en glosas MSLG.
-  4. Conserva el resto del comportamiento v1: extracción de primera línea,
-     eliminación de prefijos, comillas y artículos sueltos.
+A diferencia del post-procesamiento de glosa MSLG (que pasa todo a mayúsculas
+y elimina puntuación), aquí queremos preservar el español natural:
+  - capitalización propia (nombres propios, inicio de oración),
+  - signos de puntuación,
+  - acentos.
+
+Limpieza:
+  1. Tomar la primera línea no vacía (descartar explicaciones extra).
+  2. Quitar prefijos comunes ("Español:", "Traducción:", "SPA:", "Spanish:").
+  3. Quitar comillas envolventes y markdown (``, **, *).
+  4. Normalizar espacios.
+  5. Capitalizar la primera letra si está en minúscula.
+  6. Asegurar puntuación final (., ?, !).
+  7. Para preguntas: si empieza con palabra interrogativa común y no tiene ¿
+     al inicio, añadirlo.
 """
 
 import re
 
 
-_ARTICLES = {"EL", "LA", "LOS", "LAS", "UN", "UNA", "UNOS", "UNAS"}
-
-# Tokens de cópula que residualmente puede emitir el modelo y que el corpus no usa.
-# Se eliminan como tokens sueltos (no dentro de compuestos o locuciones con guión).
-_COPULA_TOKENS = {
-    "SER", "ESTAR", "SOY", "ERES", "ES", "ESTÁ", "ESTA", "SON",
-    "FUE", "ERA", "ESTUVE", "ESTUVO", "FUI", "FUISTE",
-}
-
-# Reemplazos de normalización ortográfica (alineados al corpus).
-_REPLACEMENTS = [
-    (re.compile(r"\bPOR-QUÉ\b"),  "PORQUÉ"),
-    (re.compile(r"\bPOR QUE\b"),  "PORQUE"),
-]
-
-# Prefijos de respuesta a recortar.
 _PREFIX_PATTERNS = [
-    re.compile(r"^MSLG\s*:\s*", re.IGNORECASE),
-    re.compile(r"^Traducción\s*:\s*", re.IGNORECASE),
-    re.compile(r"^Respuesta\s*:\s*", re.IGNORECASE),
-    re.compile(r"^Glosa\s*:\s*", re.IGNORECASE),
-    re.compile(r"^LSM\s*:\s*", re.IGNORECASE),
+    re.compile(r"^\s*(?:Español|Spanish|Traducción|Translation|SPA|ES)\s*:\s*",
+               re.IGNORECASE),
 ]
 
+_QUOTE_CHARS = ('"', "'", "“", "”", "«", "»", "‘",
+                "’")
 
-def _smart_upper(text: str) -> str:
-    """Uppercase inteligente que preserva el prefijo 'dm-' en minúsculas."""
-    tokens = text.split()
-    out = []
-    for tok in tokens:
-        low = tok.lower()
-        if low.startswith("dm-"):
-            # Conserva 'dm-' y pasa a mayúsculas lo que sigue.
-            out.append("dm-" + tok[3:].upper())
-        else:
-            out.append(tok.upper())
-    return " ".join(out)
+_INTERROG_STARTERS = (
+    "qué ", "quién", "quiénes", "cuál", "cuáles", "cuándo", "cómo",
+    "dónde", "adónde", "por qué", "cuánto", "cuánta", "cuántos", "cuántas",
+)
 
 
 def clean(raw_response: str) -> str:
+    """Limpia la respuesta cruda para obtener la oración SPA final."""
+    if not raw_response:
+        return ""
+
     text = raw_response.strip()
 
-    # 1. Primera línea no vacía.
+    # 1. Primera línea no vacía
     for line in text.split("\n"):
         line = line.strip()
         if line:
             text = line
             break
 
-    # 2. Eliminar prefijos de respuesta.
+    # 2. Quitar prefijos comunes
     for pat in _PREFIX_PATTERNS:
         text = pat.sub("", text)
 
-    # 3. Eliminar comillas.
-    text = (
-        text.replace('"', "")
-            .replace("'", "")
-            .replace("“", "")
-            .replace("”", "")
-    )
+    # 3. Quitar markdown
+    text = text.replace("**", "").replace("`", "")
+    # asterisco suelto solo si rodea texto (énfasis)
+    text = re.sub(r"\*([^*]+)\*", r"\1", text)
 
-    # 4. Uppercase preservando 'dm-'.
-    text = _smart_upper(text)
+    # 4. Quitar comillas envolventes (una sola capa)
+    text = text.strip()
+    if len(text) >= 2 and text[0] in _QUOTE_CHARS and text[-1] in _QUOTE_CHARS:
+        text = text[1:-1].strip()
 
-    # 5. Eliminar puntuación excepto ¿ ? ¡ ! - + (y el guión usado en compuestos).
-    text = re.sub(r"[^\w\s¿?¡!\-+]", "", text)
-
-    # 6. Normalizaciones ortográficas alineadas al corpus.
-    for pat, repl in _REPLACEMENTS:
-        text = pat.sub(repl, text)
-
-    # 7. Eliminar tokens sueltos de cópula y artículos (no tocar compuestos).
-    cleaned_tokens = []
-    for token in text.split():
-        # Compuestos con guión o +MUJER → se conservan íntegros.
-        if "-" in token or "+" in token:
-            cleaned_tokens.append(token)
-            continue
-        if token in _ARTICLES:
-            continue
-        if token in _COPULA_TOKENS:
-            continue
-        cleaned_tokens.append(token)
-
-    text = " ".join(cleaned_tokens)
-
-    # 8. Normalizar espacios.
+    # 5. Normalizar espacios
     text = re.sub(r"\s+", " ", text).strip()
+
+    if not text:
+        return ""
+
+    # 6. Capitalización inicial
+    # Si empieza con ¿ o ¡, capitalizar la siguiente letra
+    if text[0] in "¿¡" and len(text) > 1 and text[1].islower():
+        text = text[0] + text[1].upper() + text[2:]
+    elif text[0].islower():
+        text = text[0].upper() + text[1:]
+
+    # 7. Puntuación final
+    if text[-1] not in ".!?…":
+        # heurística: ¿ al inicio → ?, ¡ al inicio → !
+        if text.startswith("¿"):
+            text += "?"
+        elif text.startswith("¡"):
+            text += "!"
+        else:
+            # Si empieza por interrogativa común, asumir pregunta
+            lower_start = text.lower()
+            if any(lower_start.startswith(s) for s in _INTERROG_STARTERS):
+                text = "¿" + text + "?"
+                # Re-capitalizar letra tras ¿
+                if len(text) > 1 and text[1].islower():
+                    text = text[0] + text[1].upper() + text[2:]
+            else:
+                text += "."
 
     return text
