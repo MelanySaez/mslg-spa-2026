@@ -25,7 +25,7 @@ except ImportError:
 
 
 # ── Modelo Ollama ─────────────────────────────────────────────────────────────
-OLLAMA_MODEL = os.environ.get("OLLAMA_MODEL", "deepseek-r1:32b")
+OLLAMA_MODEL = os.environ.get("OLLAMA_MODEL", "jobautomation/OpenEuroLLM-Spanish")
 OLLAMA_URL = os.environ.get("OLLAMA_URL", "http://localhost:11434/api/chat")
 TEMPERATURE = float(os.environ.get("OLLAMA_TEMPERATURE", "0.1"))
 MAX_TOKENS = int(os.environ.get("OLLAMA_MAX_TOKENS", "1024"))
