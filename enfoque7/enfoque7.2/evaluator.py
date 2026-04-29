@@ -95,6 +95,11 @@ def _extract_system_score(data) -> float | None:
 def _run_comet_python_api(srcs: list, hyps: list, refs: list) -> float | None:
     """Fallback: usa la API Python de comet directamente (sin CLI)."""
     try:
+        # Evitar que transformers intente importar TensorFlow/Flax,
+        # que en Colab provoca conflictos de protobuf.
+        os.environ.setdefault("USE_TF", "0")
+        os.environ.setdefault("USE_FLAX", "0")
+        os.environ.setdefault("TRANSFORMERS_VERBOSITY", "error")
         from comet import download_model, load_from_checkpoint
     except ImportError:
         return None
