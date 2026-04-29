@@ -92,6 +92,31 @@ def _extract_system_score(data) -> float | None:
     return None
 
 
+def _run_comet_python_api(srcs: list, hyps: list, refs: list) -> float | None:
+    """Fallback: usa la API Python de comet directamente (sin CLI)."""
+    try:
+        from comet import download_model, load_from_checkpoint
+    except ImportError:
+        return None
+    try:
+        model_path = download_model(config.COMET_MODEL)
+        model = load_from_checkpoint(model_path)
+        data = [{"src": s, "mt": h, "ref": r}
+                for s, h, r in zip(srcs, hyps, refs)]
+        gpus = config.COMET_GPUS
+        output = model.predict(data, batch_size=config.COMET_BATCH_SIZE,
+                               gpus=gpus)
+        score = getattr(output, "system_score", None)
+        if score is None and hasattr(output, "scores"):
+            scores = output.scores
+            if scores:
+                score = sum(scores) / len(scores)
+        return float(score) if score is not None else None
+    except Exception as exc:
+        print(f"WARNING: API Python COMET falló: {exc}")
+        return None
+
+
 def _run_comet(srcs: list, hyps: list, refs: list) -> float | None:
     """Invoca 'comet-score' vía subprocess y retorna el system score."""
     binary = shutil.which(config.COMET_BIN) or config.COMET_BIN
@@ -99,10 +124,8 @@ def _run_comet(srcs: list, hyps: list, refs: list) -> float | None:
         # Intentar aun así (ej. ruta absoluta en COMET_BIN o ya en PATH).
         if not os.path.exists(binary):
             print(f"WARNING: '{config.COMET_BIN}' no encontrado en PATH. "
-                  f"Saltando COMET.")
-            print(f"  Instala con: uv tool install unbabel-comet "
-                  f"--prerelease=allow")
-            return None
+                  f"Intentando API Python de comet...")
+            return _run_comet_python_api(srcs, hyps, refs)
 
     with tempfile.TemporaryDirectory() as tmp:
         src_path = os.path.join(tmp, "src.txt")
