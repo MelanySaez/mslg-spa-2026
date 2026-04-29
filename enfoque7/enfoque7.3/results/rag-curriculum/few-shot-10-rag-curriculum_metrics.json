@@ -1,0 +1,7 @@
+{
+  "bleu": 0.1788190033176975,
+  "meteor": 0.5258417641486152,
+  "chrf": 0.6549953096780339,
+  "experiment": "few-shot-10-rag-curriculum",
+  "total_time_seconds": 2019.6
+}
