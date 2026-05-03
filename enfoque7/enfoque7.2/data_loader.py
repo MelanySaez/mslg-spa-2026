@@ -1,10 +1,11 @@
-"""Shim a enfoque7/data_loader.py.
+"""Shim a enfoque7/data_loader.py + cargador de test set oficial.
 
 Reusa el split SPA/MSLG idéntico al de 7.1 (mismo seed, mismo pool, mismo val).
 Esto garantiza que las métricas reversas se computan sobre los mismos IDs que
 la baseline directa, permitiendo comparación uno-a-uno.
 """
 
+import csv
 import importlib.util
 import os
 
@@ -15,3 +16,21 @@ _spec.loader.exec_module(_mod)
 
 load_dataset = _mod.load_dataset
 split_dataset = _mod.split_dataset
+
+
+def load_test(path: str, source_col: str) -> list:
+    """Lee TSV oficial de test (ID + source_col), preserva orden de archivo.
+
+    Retorna lista de dicts {id, source}. El orden es CRÍTICO: la submission
+    debe tener una línea por instancia en el mismo orden que el archivo.
+    """
+    items = []
+    with open(path, encoding="utf-8") as f:
+        reader = csv.DictReader(f, delimiter="\t")
+        for row in reader:
+            rid = row.get("ID")
+            src = row.get(source_col)
+            if not rid or not src:
+                continue
+            items.append({"id": rid.strip(), "source": src.strip()})
+    return items

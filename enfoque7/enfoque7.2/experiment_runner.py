@@ -167,6 +167,91 @@ def _save_submission_txt(results: list, exp_name: str):
     print(f"  Submission generada:  {path}")
 
 
+def run_submission(experiments=None):
+    """Inferencia sobre el test set oficial (MSLG2SPA_test.txt).
+
+    Diferencias vs run_all:
+      - Pool RAG = TODO el train (489 pares), no el split de 400.
+      - No hay gold SPA, así que no se computan métricas (incluye COMET).
+      - Salida principal: TeamName_SolutionName_MSLG2SPA.txt en orden de archivo.
+      - También se guarda un CSV de inspección con (id, mslg, spa_pred).
+    """
+    experiments = experiments or config.EXPERIMENTS
+
+    print(f"\n{'='*60}")
+    print(f"  SUBMISSION MODE — test oficial (subtask {config.SUBTASK})")
+    print(f"  Test file: {config.TEST_PATH}")
+    print(f"{'='*60}")
+
+    test_items = data_loader.load_test(config.TEST_PATH, config.TEST_SOURCE_COL)
+    pool = data_loader.load_dataset()
+    print(f"Test cargado: {len(test_items)} instancias")
+    print(f"Pool (train completo) para RAG: {len(pool)} pares")
+
+    need_embeddings = any(
+        e["type"] in ("few_shot_rag_reverse", "few_shot_rag_curriculum_reverse")
+        for e in experiments
+    )
+    emb_index = None
+    if need_embeddings:
+        import embedding_index as emb_mod
+        print("\nConstruyendo indice de embeddings sobre pool de train completo...")
+        emb_index = emb_mod.EmbeddingIndex(pool)
+
+    for experiment in experiments:
+        exp_name = experiment["name"]
+        exp_type = experiment["type"]
+        k = experiment["k"]
+
+        print(f"\n{'='*60}")
+        print(f"  [TEST] {exp_name} (tipo={exp_type}, k={k})")
+        print(f"{'='*60}")
+
+        predictions = []
+        start_time = time.time()
+        for i, item in enumerate(test_items):
+            mslg = item["source"]
+            system_prompt, user_prompt = _build_prompt(
+                exp_type, k, mslg, emb_index=emb_index)
+            raw = anthropic_client.translate(system_prompt, user_prompt)
+            spa_pred = post_processor.clean(raw)
+            predictions.append({
+                "id": item["id"],
+                "mslg": mslg,
+                "spa_pred": spa_pred,
+                "raw_response": raw,
+            })
+
+            elapsed = time.time() - start_time
+            avg = elapsed / (i + 1)
+            remaining = avg * (len(test_items) - i - 1)
+            print(
+                f"  [{exp_name}] {i+1}/{len(test_items)} "
+                f"({elapsed:.0f}s, ~{remaining:.0f}s restantes) | "
+                f"MSLG: {mslg[:45]}... | PRED: {spa_pred[:55]}"
+            )
+
+        _save_test_results_csv(predictions, exp_name)
+        _save_submission_txt(predictions, exp_name)
+
+    print(f"\n{'='*60}")
+    print(f"  Submission lista — adjuntar al email a ansel@cicese.edu.mx")
+    print(f"  Subject: 'MSLG-SPA 2026 Submission – {config.TEAM_NAME}'")
+    print(f"{'='*60}")
+
+
+def _save_test_results_csv(predictions: list, exp_name: str):
+    os.makedirs(config.RESULTS_DIR, exist_ok=True)
+    path = os.path.join(config.RESULTS_DIR, f"{exp_name}_test_predictions.csv")
+    with open(path, "w", newline="", encoding="utf-8") as f:
+        writer = csv.DictWriter(
+            f, fieldnames=["id", "mslg", "spa_pred", "raw_response"],
+            extrasaction="ignore")
+        writer.writeheader()
+        writer.writerows(predictions)
+    print(f"  Predicciones test:    {path}")
+
+
 def _save_summary_csv(summary: list):
     os.makedirs(config.RESULTS_DIR, exist_ok=True)
     path = os.path.join(config.RESULTS_DIR, "summary.csv")

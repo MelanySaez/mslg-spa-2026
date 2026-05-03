@@ -24,6 +24,7 @@ TEMPERATURE = _c.TEMPERATURE
 MAX_TOKENS = _c.MAX_TOKENS
 ENABLE_PROMPT_CACHE = _c.ENABLE_PROMPT_CACHE
 DATASET_PATH = _c.DATASET_PATH
+PROJECT_ROOT = _c.PROJECT_ROOT
 TRAIN_SPLIT = _c.TRAIN_SPLIT
 VAL_SPLIT = _c.VAL_SPLIT
 RANDOM_SEED = _c.RANDOM_SEED
@@ -49,6 +50,17 @@ SOLUTION_NAME = os.environ.get("SOLUTION_NAME", "FewShot10RagCurriculum")
 # Si True, anteponer el ID en la línea como mecanismo de verificación opcional.
 SUBMISSION_INCLUDE_ID = os.environ.get(
     "SUBMISSION_INCLUDE_ID", "false").lower() == "true"
+
+# Test set oficial (244 pares). TSV con columnas: ID, MSLG.
+TEST_PATH = os.environ.get(
+    "TEST_PATH", os.path.join(PROJECT_ROOT, "MSLG2SPA_test.txt"))
+TEST_SOURCE_COL = "MSLG"
+
+# Modo de ejecución del main.
+#   RUN_TEST=true  -> inferencia sobre TEST_PATH y dump de submission .txt
+#   RUN_VAL=true   -> evaluación sobre split val (BLEU/METEOR/chrF/COMET)
+RUN_TEST = os.environ.get("RUN_TEST", "true").lower() == "true"
+RUN_VAL = os.environ.get("RUN_VAL", "false").lower() == "true"
 
 # ── COMET (solo MSLG2SPA según la actividad) ─────────────────────────────────
 # COMET 2.x choca con pandas>=3 / torch>=2 dentro del proyecto, así que se
