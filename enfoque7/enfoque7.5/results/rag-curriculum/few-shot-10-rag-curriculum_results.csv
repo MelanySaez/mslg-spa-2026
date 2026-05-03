@@ -1,0 +1,91 @@
+id,spa,mslg_real,mslg_pred,raw_response
+486,Tengo otro libro.,OTRO LIBRO YO TENER,I HAVE ANOTHER BOOK,I have another book.
+83,Santiago guarda en su bolsillo una moneda.,dm-SANTIAGO MONEDA GUARDAR-BOLSILLO,SPA SANTIAGO KEEPS A COIN IN HIS POCKET,"SPA: ""Santiago keeps a coin in his pocket."""
+352,Yo fui a levantar un acta a la delegación.,DELEGACIÓN YO YA IR ACTA LEVANTAR,SPA I WENT TO THE DELEGATION TO COLLECT A DOCUMENT,"SPA: ""I went to the delegation to collect a document."""
+979,La sopa está caliente.,SOPA CALIENTE,SPA THE SOUP IS HOT,"SPA: ""The soup is hot."""
+790,Debes seguir estudiando.,TÚ DEBER SEGUIR ESTUDIAR,SPA YOU SHOULD CONTINUE STUDYING,"SPA: ""You should continue studying."""
+525,Tú eres muy afortunado en todo.,TODO AFORTUNADO,SPA YOURE VERY LUCKY IN EVERYTHING,"SPA: ""You're very lucky in everything."""
+464,La credencial del INE tiene mi huella.,CREDENCIAL VOTAR HABER MI HUELLA,SPA THE INE CREDENTIAL HAS MY FINGERPRINT,"SPA: ""The INE credential has my fingerprint."""
+728,Debes mostrar tu INE para poder pasar.,TU INE TÚ DEBER MOSTRAR PARA PERMISO PASAR,YOU MUST SHOW YOUR INE TO BE ALLOWED TO PASS,You must show your INE to be allowed to pass.
+799,En Villahermosa hace mucho calor.,VILLAHERMOSA MUCHO CALOR,SPA ITS VERY HOT IN VILLAHERMOSA,"SPA: ""It's very hot in Villahermosa."""
+419,Mañana habrá descuentos en bolsas de mano en Liverpool.,MAÑANA LIVERPOOL HABER DESCUENTO BOLSA-MANO,SPA TOMORROW THERE WILL BE DISCOUNTS ON HANDBAGS IN LIVERPOOL,"SPA: ""Tomorrow there will be discounts on handbags in Liverpool."""
+854,Le regalé un cinturón a mi papá.,MI PAPÁ CINTURÓN YO REGALAR ÉL,I GAVE MY DAD A BELT FOR HIS BIRTHDAY,I gave my dad a belt for his birthday.
+619,Voy a estudiar hasta secundaria y después quiero trabajar.,YO ESTUDIAR HASTA SECUNDARIA DESPUES TRABAJAR YO DESEAR,SPA IM GOING TO STUDY UNTIL HIGH SCHOOL AND THEN I WANT TO WORK,"SPA: ""I'm going to study until high school, and then I want to work."""
+909,Mi hermano no me dio pastel ayer.,AYER MI HERMANO PASTEL ÉL DAR MÍ,MY BROTHER DIDNT GIVE ME CAKE YESTERDAY,"""My brother didn't give me cake yesterday."""
+270,"Tú tienes unos audífonos, ¿me los prestas?","AUDÍFONOS TÚ TENER, ¿PRESTAR? SÍ NO",SPA YOU HAVE SOME HEADPHONES CAN I BORROW THEM?,"SPA: ""You have some headphones, can I borrow them?"""
+383,Mis amigos argentinos estudiaron antropología.,MI AMIGO ARGENTINA ANTROPOLOGÍA ELLOS ESTUDIAR YA,SPA MY ARGENTINE FRIENDS STUDIED ANTHROPOLOGY,"SPA: ""My Argentine friends studied anthropology."""
+404,Tu sobrino está atrás de mi esposo.,TUYO SOBRINO ATRÁS MI ESPOSO,SPA YOUR NEPHEW IS BEHIND MY HUSBAND,"SPA: ""Your nephew is behind my husband."""
+863,Compraré la cena de Navidad en la Comercial Mexicana.,COMERCIAL MEXICANA YO COMPRAR CENA NAVIDAD,SPA ILL BUY CHRISTMAS DINNER AT COMERCIAL MEXICANA,"SPA: ""I'll buy Christmas dinner at Comercial Mexicana."""
+199,"Me pasé un semáforo, ahora tengo que pagar una multa.",SEMÁFORO LUZ ROJA YO PASAR AHORA MULTA YO DEBER PAGAR,I RAN A RED LIGHT AND NOW I HAVE TO PAY A FINE,"I ran a red light, and now I have to pay a fine."
+628,Alicia viajó a Sudáfrica.,dm-ALICIA YA VIAJAR SUDÁFRICA,ALICIA TRAVELED TO SOUTH AFRICA,Alicia traveled to South Africa.
+878,En Cuba hace mucho calor,CUBA CALOR,SPA ITS VERY HOT IN CUBA,"SPA: ""It's very hot in Cuba"""
+298,El niño ve un mono en el zoológico.,ENTRAR ANIMAL NIÑO VER MONO,THE BOY SEES A MONKEY AT THE ZOO,The boy sees a monkey at the zoo.
+208,No hay dulces en el frasco.,FRASCO DULCES NO-HAY,SPA THERE ARE NO SWEETS IN THE JAR,"SPA: ""There are no sweets in the jar."""
+470,Fui a comprar jabón a la tienda.,YO IR TIENDA COMPRAR JABÓN YA,I WENT TO THE STORE TO BUY SOAP,I went to the store to buy soap.
+859,Yo compré una Coca Cola ayer.,AYER COCA-COLA YO COMPRAR,I BOUGHT A COCA COLA YESTERDAY,I bought a Coca Cola yesterday.
+570,"Mi tío vive en la frontera, en Tijuana.",FRONTERA TIJUANA MÍ TÍO VIVIR,SPA MY UNCLE LIVES ON THE BORDER IN TIJUANA,"SPA: ""My uncle lives on the border, in Tijuana."""
+800,"Eso es feo, parece vulgar.",ESO FEO PARECE VULGAR,THATS UGLY IT LOOKS VULGAR,"That's ugly, it looks vulgar."
+783,La policia judicial nos protege.,POLICÍA AGENTE NOSOTROS PROTEGER MÍ,SPA THE JUDICIAL POLICE PROTECT US,"SPA: ""The judicial police protect us."""
+281,"Eso es muy bonito, sí me gusta.",ESO BONITO SÍ YO GUSTAR,THATS VERY NICE I LIKE IT,"That's very nice, I like it."
+379,Algunas personas son analfabetas.,ALGUNAS PERSONAS ANALFABETO,SPA SOME PEOPLE ARE ILLITERATE,"SPA: ""Some people are illiterate."""
+703,Ghana está en África.,ÁFRICA ADENTRO GHANA,SPA GHANA IS IN AFRICA,"SPA: ""Ghana is in Africa."""
+136,La tienda más cercana está a dos cuadras.,TIENDA CERCA DOS CUADRAS,THE NEAREST STORE IS TWO BLOCKS AWAY,"""The nearest store is two blocks away."""
+358,Adán es el primer hombre creado por Dios en el mundo.,ADÁN PRIMER HOMBRE MUNDO DIOS HACER,SPA ADAM IS THE FIRST MAN CREATED BY GOD IN THE WORLD,"SPA: ""Adam is the first man created by God in the world."""
+918,Mi viaje a Francia me emocionó.,YO VIAJE FRANCIA YO EMOCIONAR YA,SPA MY TRIP TO FRANCE EXCITED ME,"SPA: ""My trip to France excited me."""
+138,La Biblioteca de México es muy grande.,MÉXICO BIBLIOTECA GRANDE,SPA THE LIBRARY OF MEXICO IS VERY LARGE,"SPA: ""The Library of Mexico is very large."""
+365,Le regalé un juguete a mi ahijado.,JUGUETE MI AHIJADO YO REGALAR ÉL YA,I GAVE A TOY TO MY GODSON,I gave a toy to my godson.
+822,El calendario de la SEP termina en agosto.,SU #SEP CALENDARIO AGOSTO TERMINAR,SPA THE SEP CALENDAR ENDS IN AUGUST,"SPA: ""The SEP calendar ends in August."""
+624,El senador explica por qué la gasolina está cara.,SENADOR GASOLINA AUMENTAR PORQUÉ ÉL EXPLICAR,SENATOR EXPLAINS WHY GASOLINE IS EXPENSIVE,Senator explains why gasoline is expensive.
+326,Aimé saltó en paracaídas.,dm-AIMÉ SALTAR PARACAIDAS,AIMÉ JUMPED OUT OF A PARACHUTE,Aimé jumped out of a parachute.
+472,Es fácil aprender las letras del abecedario.,FÁCIL APRENDER LETRA ABECEDARIO,SPA ITS EASY TO LEARN THE LETTERS OF THE ALPHABET,"SPA: ""It's easy to learn the letters of the alphabet."""
+761,Nuestra cita es en Taxqueña.,NUESTRA CITA LUGAR TAXQUEÑA,SPA OUR APPOINTMENT IS IN TAXQUEÑA,"SPA: ""Our appointment is in Taxqueña."""
+567,"Con mucho polvo, yo estornudo mucho.",POLVO YO MUCHO ESTORNUDAR,WITH A LOT OF DUST I SNEEZE A LOT,"With a lot of dust, I sneeze a lot."
+213,El disfraz está hecho de papel,DISFRAZ HACER. PAPEL,SPA THE COSTUME IS MADE OF PAPER,"SPA: ""The costume is made of paper"""
+363,Mi hermano revisa su agenda diario.,DIARIO MI HERMANO AGENDA REVISAR,SPA MY BROTHER CHECKS HIS DAILY SCHEDULE,"SPA: ""My brother checks his daily schedule."""
+668,MI Mí familia y yo fuimos a Celaya.,CELAYA MI FAMILIA NOSOTROS-DE-DOS YA IR,SPA MY FAMILY AND I WENT TO CELAYA,"SPA: ""My family and I went to Celaya."""
+652,A mí no me gustan las ametralladoras.,AMETRALLADORA DIFERENTE YO NO-GUSTAR,SPA I DONT LIKE MACHINE GUNS,"SPA: ""I don't like machine guns."""
+479,Me mandas un mensaje de whatsapp en la noche.,NOCHE MENSAJEAR WHATSAPP TÚ MANDAR MÍ,SPA YOU SEND ME A WHATSAPP MESSAGE AT NIGHT,"SPA: ""You send me a WhatsApp message at night."""
+280,A mí sí me gusta jugar boliche.,SÍ YO GUSTAR JUGAR BOLICHE,SPA I DO ENJOY PLAYING BOWLING,"SPA: ""I do enjoy playing bowling."""
+857,Juan Gabriel nació en Ciudad Juárez.,dm-JUAN GABRIEL NACER CIUDAD JUÁREZ,JUAN GABRIEL WAS BORN IN CIUDAD JUÁREZ,Juan Gabriel was born in Ciudad Juárez.
+811,Yo limpié la azotea de la casa.,CASA AZOTEAarriba YO LIMPIAR YA,SPA I CLEANED THE ROOF OF THE HOUSE,"SPA: ""I cleaned the roof of the house."""
+696,Ayer fui a la galería.,AYER YO YA IR GALERÍA,YESTERDAY I WENT TO THE GALLERY,Yesterday I went to the gallery.
+916,Mi familia siempre dona a Teletón.,SIEMPRE MI FAMILIA TELETÓN DONAR DONAR,SPA MY FAMILY ALWAYS DONATES TO TELETÓN,"SPA: ""My family always donates to Teletón."""
+239,Necesito papel para absorber el agua.,YO NECESITAR PAPEL PARA AGUA ABSORBER,SPA I NEED PAPER TO ABSORB THE WATER,"SPA: ""I need paper to absorb the water."""
+369,Mi vecino va diario a Alcohólicos Anónimos.,DIARIO MI VECINO IR ALCOHÓLICOS-ANÓNIMOS,SPA MY NEIGHBOR GOES TO ALCOHOLICS ANONYMOUS EVERY DAY,"SPA: ""My neighbor goes to Alcoholics Anonymous every day."""
+507,Mi hermano terminó con su novia.,MI HERMANO SUYA NOVIO+MUJER SEPARAR YA,SPA MY BROTHER BROKE UP WITH HIS GIRLFRIEND,"SPA: ""My brother broke up with his girlfriend."""
+312,Compré este celular ayer pero está muy corriente.,AYER ESTE CELULAR YO YA COMPRAR PERO CORRIENTE,SPA I BOUGHT THIS PHONE YESTERDAY BUT ITS PRETTY BASIC,"SPA: ""I bought this phone yesterday, but it's pretty basic."""
+133,Me gustan las fresas con crema.,FRESAS CON CREMA YO GUSTAR,SPA I LIKE STRAWBERRIES WITH CREAM,"SPA: ""I like strawberries with cream."""
+719,El año pasado viajé a Guanajuato.,AÑO-PASADO YO VIAJAR GUANAJUATO,LAST YEAR I TRAVELED TO GUANAJUATO,"Last year, I traveled to Guanajuato."
+924,Mi primo ingresó a la universidad.,MI PRIMO UNIVERSIDAD YA INGRESAR,MY COUSIN WENT TO COLLEGE,"""My cousin went to college."""
+782,Hay muchos policías en la manifestación.,MUCHOS POLICÍA HABER MANIFESTACIÓN,SPA THERE ARE MANY POLICE OFFICERS AT THE DEMONSTRATION,"SPA: ""There are many police officers at the demonstration."""
+906,En el refrigerador hay comida caducada.,REFRIGERADOR HABER COMIDA CADUCADA,SPA THERE IS EXPIRED FOOD IN THE REFRIGERATOR,"SPA: ""There is expired food in the refrigerator."""
+3,¿Y eso?,¿Y-ESO?,SPA AND THAT?,"SPA: ""And that?"""
+466,La India es el séptimo país más grande del mundo.,INDIA SÉPTIMO PAÍS MÁS GRANDE MUNDO,SPA INDIA IS THE SEVENTH LARGEST COUNTRY IN THE WORLD,"SPA: ""India is the seventh largest country in the world."""
+597,El gobernador colocó mucha publicidad por las calles.,HOMBRE GOBERNADOR PUBLICIDAD COLOCAR COLOCAR CALLES,SPA THE GOVERNOR PUT UP A LOT OF ADVERTISING ON THE STREETS,"SPA: ""The governor put up a lot of advertising on the streets."""
+217,Pienso estudiar odontología.,ODONTOLOGÍA YO PENSAR ESTUDIAR,SPA I PLAN TO STUDY DENTISTRY,"SPA: ""I plan to study dentistry."""
+762,Ella tiene una lunar bonito.,ELLA TENER LUNAR BONITO,SPA SHE HAS A BEAUTIFUL MOLE,"SPA: ""She has a beautiful mole."""
+666,Yo gané el campeonato.,YO YA GANAR CAMPEONATO,SPA I WON THE CHAMPIONSHIP,"SPA: ""I won the championship."""
+392,Mi novio nació en Argentina.,MI NOVIO NACER LUGAR ARGENTINA,SPA MY BOYFRIEND WAS BORN IN ARGENTINA,"SPA: ""My boyfriend was born in Argentina."""
+387,¿Cómo haces la seña de apóstoles?,¿CÓMO SEÑA dm-APÓSTOLES?,SPA HOW DO YOU MAKE THE APOSTLES SIGN?,"SPA: ""How do you make the apostles' sign?"""
+307,"Ya tengo trabajo, estoy contento.",YO TENER TRABAJO YA CONTENTO YO,SPA I ALREADY HAVE A JOB AND IM HAPPY WITH IT,"SPA: ""I already have a job, and I'm happy with it."""
+502,Mi hijo reprobó el sexto de primaria.,SEXTO-Primaria MI HIJO YA REPROBAR,MY SON FAILED SIXTH GRADE,"""My son failed sixth grade."""
+215,Al parecer va a llover en la tarde.,LLOVER TARDE PARECE,IT LOOKS LIKE ITS GOING TO RAIN IN THE AFTERNOON,It looks like it's going to rain in the afternoon.
+316,"Él fue arrestado, qué feo.",YA ÉL ARRESTADO ESO FEO VERDAD,SPA HE WAS ARRESTED HOW AWFUL,"SPA: ""He was arrested, how awful."""
+372,Mi sobrino es muy alto.,MI SOBRINO ALTO,MY NEPHEW IS VERY TALL,"""My nephew is very tall."""
+904,Las próximas vacaciones iré de viaje a Ciudad Obregón.,PRÓXIMO VACACIONES YO VIAJAR CIUDAD-OBREGÓN,SPA NEXT VACATION I WILL TRAVEL TO CIUDAD OBREGÓN,"SPA: ""Next vacation I will travel to Ciudad Obregón."""
+378,En la iglesia decimos amén.,IGLESIA NOSOTROS-DE-DOS DECIR AMÉN,IN CHURCH WE SAY AMEN,In church we say amen.
+292,Anoche el metro era un caos.,AYER NOCHE METRO CAOS,LAST NIGHT THE SUBWAY WAS A MESS,"Last night, the subway was a mess."
+605,En la fábrica de Sabritas buscan personal para trabajar.,LUGAR FABRICA SABRITAS HAY TRABAJO PARA PERSONAS,SPA SABRITAS FACTORY IS LOOKING FOR STAFF TO WORK,"SPA: ""Sabritas factory is looking for staff to work."""
+206,Yo nado en la alberca.,ALBERCA YO NADAR,SPA I SWIM IN THE POOL,"SPA: ""I swim in the pool."""
+37,El maestro se reunió aparte con sus alumnos.,MAESTRO ALUMNOS REUNIÓN APARTE,THE TEACHER MET PRIVATELY WITH HIS STUDENTS,The teacher met privately with his students.
+125,Convencí a mi amigo de ir a la fiesta.,YO YA CONVENCER MI AMIGO IR FIESTA,I CONVINCED MY FRIEND TO GO TO THE PARTY,I convinced my friend to go to the party.
+417,Pinté mi puerta de color azul.,MI PUERTA COLOR AZUL YO YA PINTAR,I PAINTED MY DOOR BLUE,I painted my door blue.
+406,Austria es un país hermoso.,AUSTRÍA SU PAÍS HERMOSO,SPA AUSTRIA IS A BEAUTIFUL COUNTRY,"SPA: ""Austria is a beautiful country."""
+785,"Diario manejo mi auto, debo ponerle gasolina.",DIARIO YO MANEJAR CARRO YO DEBER PONER-GASOLINA,SPA I DRIVE MY CAR EVERY DAY SO I NEED TO PUT GAS IN IT,"SPA: ""I drive my car every day, so I need to put gas in it."""
+823,¡El café está muy caliente!,¡CAFÉ CALIENTE!,SPA THE COFFEE IS VERY HOT!,"SPA: ""The coffee is very hot!"""
+536,"En diciembre del año pasado, mi jefe viajó a Bogotá.",AÑO-PASADO DICIEMBRE BOGOTÁ MÍ JEFE VIAJAR,IN DECEMBER LAST YEAR MY BOSS TRAVELED TO BOGOTÁ,"In December last year, my boss traveled to Bogotá."
+346,Yo abandoné a mi hijo.,MI HIJO YO ABANDONAR,SPA I ABANDONED MY SON,"SPA: ""I abandoned my son."""
+801,"Él desea conquistar a una mujer, pero tiene miedo de que lo abandonen.",ÉL DESEAR CONQUISTAR ELLA MUJER PERO MIEDO ELLA ABANDONAR,HE WANTS TO WIN A WOMANS HEART BUT HES AFRAID SHELL LEAVE HIM,"He wants to win a woman's heart, but he's afraid she'll leave him."
+638,Tepito es un lugar muy conocido.,TEPITO LUGAR FAMOSO,SPA TEPITO IS A WELL-KNOWN PLACE,"SPA: ""Tepito is a well-known place."""
+844,Nos vemos en el metro chabacano a las 10 de la mañana,10 MAÑANA NOS-VEMOS METRO CHABACANO,SPA WELL MEET AT THE CHABACANO METRO AT 10 AM,"SPA: ""We'll meet at the Chabacano metro at 10 a.m."""
+463,Hoy es mi cumpleaños.,HOY CUMPLEAÑOS MÍ,SPA TODAY IS MY BIRTHDAY,"SPA: ""Today is my birthday."""

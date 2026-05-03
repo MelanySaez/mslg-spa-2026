@@ -1,2 +1,2 @@
-name,bleu,meteor,chrf,comet
-few-shot-10-rag-curriculum-mslg2spa,0.40729304587003845,0.6814874652675879,0.7492651999912078,0.9003634982638888
+name                               , bleu               , meteor            , chrf              , comet
+few-shot-10-rag-curriculum-mslg2spa, 0.40729304587003845, 0.6814874652675879, 0.7492651999912078, 0.9003634982638888
