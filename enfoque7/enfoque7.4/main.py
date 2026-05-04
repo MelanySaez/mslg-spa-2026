@@ -29,10 +29,20 @@ def main():
     print(f"  Endpoint: {config.OLLAMA_URL}")
     print(f"  Dataset: {config.DATASET_PATH}")
     print(f"  Results dir: {config.RESULTS_DIR}")
+    print(f"  RUN_TEST={config.RUN_TEST}  RUN_VAL={config.RUN_VAL}")
     print("  Experimento: few-shot-10-rag-curriculum-mslg2spa")
     print("=" * 60)
 
-    experiment_runner.run_all()
+    if not (config.RUN_TEST or config.RUN_VAL):
+        print("ERROR: ambos RUN_TEST y RUN_VAL están en false. Nada que correr.",
+              file=sys.stderr)
+        sys.exit(1)
+
+    if config.RUN_VAL:
+        experiment_runner.run_all()
+
+    if config.RUN_TEST:
+        experiment_runner.run_submission()
 
 
 if __name__ == "__main__":

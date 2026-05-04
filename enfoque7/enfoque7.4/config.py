@@ -50,13 +50,26 @@ EMBEDDING_MODEL = os.environ.get(
 DIRECTION = "mslg2spa"
 
 # ── Submission MSLG-SPA 2026 ──────────────────────────────────────────────────
+# Subtask oficial: MSLG2SPA (Gloss-to-Spanish). Métricas: BLEU, METEOR, chrF,
+# COMET. La salida .txt sigue el formato 'TeamName_SolutionName_MSLG2SPA.txt'.
 SUBTASK = "MSLG2SPA"
-TEAM_NAME = os.environ.get("TEAM_NAME", "PrismaticVision")
+TEAM_NAME = os.environ.get("TEAM_NAME", "VerbaNexAI")
 SOLUTION_NAME = os.environ.get(
-    "SOLUTION_NAME", "FewShot10RagCurriculumDeepseekR1_32b"
+    "SOLUTION_NAME", "FewShot10RagCurriculumOpenEuroLLM"
 )
 SUBMISSION_INCLUDE_ID = os.environ.get(
     "SUBMISSION_INCLUDE_ID", "false").lower() == "true"
+
+# Test set oficial. TSV con columnas: ID, MSLG.
+TEST_PATH = os.environ.get(
+    "TEST_PATH", os.path.join(PROJECT_ROOT, "MSLG2SPA_test.txt"))
+TEST_SOURCE_COL = "MSLG"
+
+# Modo de ejecución del main.
+#   RUN_TEST=true  -> inferencia sobre TEST_PATH y dump de submission .txt
+#   RUN_VAL=true   -> evaluación sobre split val (BLEU/METEOR/chrF/COMET)
+RUN_TEST = os.environ.get("RUN_TEST", "true").lower() == "true"
+RUN_VAL = os.environ.get("RUN_VAL", "false").lower() == "true"
 
 # ── COMET (solo MSLG2SPA según la actividad) ─────────────────────────────────
 ENABLE_COMET = os.environ.get("ENABLE_COMET", "true").lower() == "true"

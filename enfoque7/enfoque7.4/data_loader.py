@@ -1,10 +1,11 @@
-"""Shim a enfoque7/data_loader.py.
+"""Shim a enfoque7/data_loader.py + cargador de test set oficial.
 
 Reusa el split SPA/MSLG idéntico al de 7.2 (mismo seed, mismo pool, mismo
 val), garantizando comparación uno-a-uno entre la versión Anthropic (7.2) y
 la versión Ollama local (7.4).
 """
 
+import csv
 import importlib.util
 import os
 
@@ -15,3 +16,21 @@ _spec.loader.exec_module(_mod)
 
 load_dataset = _mod.load_dataset
 split_dataset = _mod.split_dataset
+
+
+def load_test(path: str, source_col: str) -> list:
+    """Lee TSV oficial de test (ID + source_col), preserva orden de archivo.
+
+    Retorna lista de dicts {id, source}. El orden es CRÍTICO: la submission
+    debe tener una línea por instancia en el mismo orden que el archivo.
+    """
+    items = []
+    with open(path, encoding="utf-8") as f:
+        reader = csv.DictReader(f, delimiter="\t")
+        for row in reader:
+            rid = row.get("ID")
+            src = row.get(source_col)
+            if not rid or not src:
+                continue
+            items.append({"id": rid.strip(), "source": src.strip()})
+    return items
