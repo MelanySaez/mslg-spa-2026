@@ -45,7 +45,7 @@ DIRECTION = "mslg2spa"
 # Subtask oficial: MSLG2SPA (Gloss-to-Spanish). Métricas: BLEU, METEOR, chrF,
 # COMET. La salida .txt sigue el formato 'TeamName_SolutionName_MSLG2SPA.txt'.
 SUBTASK = "MSLG2SPA"
-TEAM_NAME = os.environ.get("TEAM_NAME", "PrismaticVision")
+TEAM_NAME = os.environ.get("TEAM_NAME", "VerbaNexAI")
 SOLUTION_NAME = os.environ.get("SOLUTION_NAME", "FewShot10RagCurriculum")
 # Si True, anteponer el ID en la línea como mecanismo de verificación opcional.
 SUBMISSION_INCLUDE_ID = os.environ.get(

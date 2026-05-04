@@ -18,6 +18,7 @@ TEMPERATURE = _c.TEMPERATURE
 MAX_TOKENS = _c.MAX_TOKENS
 ENABLE_PROMPT_CACHE = _c.ENABLE_PROMPT_CACHE
 DATASET_PATH = _c.DATASET_PATH
+PROJECT_ROOT = _c.PROJECT_ROOT
 TRAIN_SPLIT = _c.TRAIN_SPLIT
 VAL_SPLIT = _c.VAL_SPLIT
 RANDOM_SEED = _c.RANDOM_SEED
@@ -37,10 +38,21 @@ RESULTS_DIR = os.path.join(BASE_DIR, "results", RESULTS_SUBDIR)
 # La salida .txt sigue el formato 'TeamName_SolutionName_SPA2MSLG.txt'.
 DIRECTION = "spa2mslg"
 SUBTASK = "SPA2MSLG"
-TEAM_NAME = os.environ.get("TEAM_NAME", "PrismaticVision")
+TEAM_NAME = os.environ.get("TEAM_NAME", "VerbaNexAI")
 SOLUTION_NAME = os.environ.get("SOLUTION_NAME", "FewShot10RagCurriculum")
 SUBMISSION_INCLUDE_ID = os.environ.get(
     "SUBMISSION_INCLUDE_ID", "false").lower() == "true"
+
+# Test set oficial (244 pares). TSV con columnas: ID, SPA.
+TEST_PATH = os.environ.get(
+    "TEST_PATH", os.path.join(PROJECT_ROOT, "SPA2MSLG_test.txt"))
+TEST_SOURCE_COL = "SPA"
+
+# Modo de ejecución del main.
+#   RUN_TEST=true  -> inferencia sobre TEST_PATH y dump de submission .txt
+#   RUN_VAL=true   -> evaluación sobre split val (BLEU/METEOR/chrF)
+RUN_TEST = os.environ.get("RUN_TEST", "true").lower() == "true"
+RUN_VAL = os.environ.get("RUN_VAL", "false").lower() == "true"
 
 # Un único experimento: híbrido RAG + curriculum k=10
 EXPERIMENTS = [
