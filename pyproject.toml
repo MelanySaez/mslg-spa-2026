@@ -23,3 +23,15 @@ dependencies = [
     "anthropic>=0.40",
     "python-dotenv>=1.0",
 ]
+
+[tool.pyright]
+typeCheckingMode = "basic"
+reportMissingTypeStubs = false
+reportMissingImports = "warning"
+reportUnknownVariableType = false
+reportUnknownMemberType = false
+reportArgumentType = false
+reportAssignmentType = false
+reportGeneralTypeIssues = false
+reportOptionalMemberAccess = false
+reportAttributeAccessIssue = false
