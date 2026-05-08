@@ -1,8 +1,8 @@
 {
-  "bleu": 0.40960946625833694,
-  "meteor": 0.6531328494071588,
-  "chrf": 0.7371352308793069,
-  "comet": null,
+  "bleu": 0.4058488026674504,
+  "meteor": 0.6473895189001825,
+  "chrf": 0.7370775305837916,
+  "comet": 0.9010199652777777,
   "experiment": "many-shot-all-mslg2spa",
-  "total_time_seconds": 97.2
+  "total_time_seconds": 201.1
 }

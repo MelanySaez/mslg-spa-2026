@@ -16,17 +16,17 @@ id,mslg,spa_real,spa_pred,raw_response
 383,MI AMIGO ARGENTINA ANTROPOLOGÍA ELLOS ESTUDIAR YA,Mis amigos argentinos estudiaron antropología.,Mi amigo y ellos ya estudiaron antropología en Argentina.,Mi amigo y ellos ya estudiaron antropología en Argentina.
 404,TUYO SOBRINO ATRÁS MI ESPOSO,Tu sobrino está atrás de mi esposo.,Tu sobrino está detrás de mi esposo.,Tu sobrino está detrás de mi esposo.
 863,COMERCIAL MEXICANA YO COMPRAR CENA NAVIDAD,Compraré la cena de Navidad en la Comercial Mexicana.,Compré la cena de Navidad en Comercial Mexicana.,Compré la cena de Navidad en Comercial Mexicana.
-199,SEMÁFORO LUZ ROJA YO PASAR AHORA MULTA YO DEBER PAGAR,"Me pasé un semáforo, ahora tengo que pagar una multa.",Pasé el semáforo en luz roja y ahora debo pagar una multa.,Pasé el semáforo en luz roja y ahora debo pagar una multa.
+199,SEMÁFORO LUZ ROJA YO PASAR AHORA MULTA YO DEBER PAGAR,"Me pasé un semáforo, ahora tengo que pagar una multa.",Pasé el semáforo en rojo y ahora debo pagar una multa.,Pasé el semáforo en rojo y ahora debo pagar una multa.
 628,dm-ALICIA YA VIAJAR SUDÁFRICA,Alicia viajó a Sudáfrica.,Alicia ya viajó a Sudáfrica.,Alicia ya viajó a Sudáfrica.
 878,CUBA CALOR,En Cuba hace mucho calor,Cuba es muy calurosa.,Cuba es muy calurosa.
-298,ENTRAR ANIMAL NIÑO VER MONO,El niño ve un mono en el zoológico.,El niño vio entrar a un mono.,El niño vio entrar a un mono.
+298,ENTRAR ANIMAL NIÑO VER MONO,El niño ve un mono en el zoológico.,El niño vio entrar un mono al zoológico.,El niño vio entrar un mono al zoológico.
 208,FRASCO DULCES NO-HAY,No hay dulces en el frasco.,El frasco no tiene dulces.,El frasco no tiene dulces.
 470,YO IR TIENDA COMPRAR JABÓN YA,Fui a comprar jabón a la tienda.,Ya fui a la tienda a comprar jabón.,Ya fui a la tienda a comprar jabón.
 859,AYER COCA-COLA YO COMPRAR,Yo compré una Coca Cola ayer.,Ayer compré Coca-Cola.,Ayer compré Coca-Cola.
 570,FRONTERA TIJUANA MÍ TÍO VIVIR,"Mi tío vive en la frontera, en Tijuana.",Mi tío vive en la frontera de Tijuana.,Mi tío vive en la frontera de Tijuana.
 800,ESO FEO PARECE VULGAR,"Eso es feo, parece vulgar.",Eso parece feo y vulgar.,Eso parece feo y vulgar.
 783,POLICÍA AGENTE NOSOTROS PROTEGER MÍ,La policia judicial nos protege.,Los agentes de policía nos protegen.,Los agentes de policía nos protegen.
-281,ESO BONITO SÍ YO GUSTAR,"Eso es muy bonito, sí me gusta.","Eso sí es bonito, me gusta.","Eso sí es bonito, me gusta."
+281,ESO BONITO SÍ YO GUSTAR,"Eso es muy bonito, sí me gusta.","Eso es bonito, sí me gusta.","Eso es bonito, sí me gusta."
 379,ALGUNAS PERSONAS ANALFABETO,Algunas personas son analfabetas.,Algunas personas son analfabetas.,Algunas personas son analfabetas.
 703,ÁFRICA ADENTRO GHANA,Ghana está en África.,Ghana está en África.,Ghana está en África.
 136,TIENDA CERCA DOS CUADRAS,La tienda más cercana está a dos cuadras.,La tienda está a dos cuadras de aquí.,La tienda está a dos cuadras de aquí.
@@ -38,9 +38,9 @@ id,mslg,spa_real,spa_pred,raw_response
 624,SENADOR GASOLINA AUMENTAR PORQUÉ ÉL EXPLICAR,El senador explica por qué la gasolina está cara.,El senador explica por qué aumentó la gasolina.,El senador explica por qué aumentó la gasolina.
 326,dm-AIMÉ SALTAR PARACAIDAS,Aimé saltó en paracaídas.,Aimé salta en paracaídas.,Aimé salta en paracaídas.
 472,FÁCIL APRENDER LETRA ABECEDARIO,Es fácil aprender las letras del abecedario.,Es fácil aprender las letras del abecedario.,Es fácil aprender las letras del abecedario.
-761,NUESTRA CITA LUGAR TAXQUEÑA,Nuestra cita es en Taxqueña.,Nuestra cita es en Taxqueña.,Nuestra cita es en Taxqueña.
-567,POLVO YO MUCHO ESTORNUDAR,"Con mucho polvo, yo estornudo mucho.",El polvo me hace estornudar mucho.,El polvo me hace estornudar mucho.
-213,DISFRAZ HACER. PAPEL,El disfraz está hecho de papel,Hago un disfraz para el papel.,Hago un disfraz para el papel.
+761,NUESTRA CITA LUGAR TAXQUEÑA,Nuestra cita es en Taxqueña.,Nuestra cita será en Taxqueña.,Nuestra cita será en Taxqueña.
+567,POLVO YO MUCHO ESTORNUDAR,"Con mucho polvo, yo estornudo mucho.",Estornudo mucho por el polvo.,Estornudo mucho por el polvo.
+213,DISFRAZ HACER. PAPEL,El disfraz está hecho de papel,Hago un disfraz para el papel que voy a representar.,Hago un disfraz para el papel que voy a representar.
 363,DIARIO MI HERMANO AGENDA REVISAR,Mi hermano revisa su agenda diario.,Mi hermano revisa la agenda diariamente.,Mi hermano revisa la agenda diariamente.
 668,CELAYA MI FAMILIA NOSOTROS-DE-DOS YA IR,MI Mí familia y yo fuimos a Celaya.,Mi familia y yo ya fuimos a Celaya.,Mi familia y yo ya fuimos a Celaya.
 652,AMETRALLADORA DIFERENTE YO NO-GUSTAR,A mí no me gustan las ametralladoras.,No me gustan las diferentes ametralladoras.,No me gustan las diferentes ametralladoras.
@@ -59,7 +59,7 @@ id,mslg,spa_real,spa_pred,raw_response
 924,MI PRIMO UNIVERSIDAD YA INGRESAR,Mi primo ingresó a la universidad.,Mi primo ya ingresó a la universidad.,Mi primo ya ingresó a la universidad.
 782,MUCHOS POLICÍA HABER MANIFESTACIÓN,Hay muchos policías en la manifestación.,Hay muchos policías en la manifestación.,Hay muchos policías en la manifestación.
 906,REFRIGERADOR HABER COMIDA CADUCADA,En el refrigerador hay comida caducada.,En el refrigerador hay comida caducada.,En el refrigerador hay comida caducada.
-3,¿Y-ESO?,¿Y eso?,¿Y eso?,¿Y eso?
+3,¿Y-ESO?,¿Y eso?,¿Y eso qué?,¿Y eso qué?
 466,INDIA SÉPTIMO PAÍS MÁS GRANDE MUNDO,La India es el séptimo país más grande del mundo.,India es el séptimo país más grande del mundo.,India es el séptimo país más grande del mundo.
 597,HOMBRE GOBERNADOR PUBLICIDAD COLOCAR COLOCAR CALLES,El gobernador colocó mucha publicidad por las calles.,El gobernador coloca mucha publicidad en las calles.,El gobernador coloca mucha publicidad en las calles.
 217,ODONTOLOGÍA YO PENSAR ESTUDIAR,Pienso estudiar odontología.,Estoy pensando en estudiar odontología.,Estoy pensando en estudiar odontología.
@@ -72,7 +72,7 @@ id,mslg,spa_real,spa_pred,raw_response
 215,LLOVER TARDE PARECE,Al parecer va a llover en la tarde.,Parece que va a llover tarde.,Parece que va a llover tarde.
 316,YA ÉL ARRESTADO ESO FEO VERDAD,"Él fue arrestado, qué feo.","Ya lo arrestaron, eso es muy feo de verdad.","Ya lo arrestaron, eso es muy feo de verdad."
 372,MI SOBRINO ALTO,Mi sobrino es muy alto.,Mi sobrino es alto.,Mi sobrino es alto.
-904,PRÓXIMO VACACIONES YO VIAJAR CIUDAD-OBREGÓN,Las próximas vacaciones iré de viaje a Ciudad Obregón.,En las próximas vacaciones viajaré a Ciudad Obregón.,En las próximas vacaciones viajaré a Ciudad Obregón.
+904,PRÓXIMO VACACIONES YO VIAJAR CIUDAD-OBREGÓN,Las próximas vacaciones iré de viaje a Ciudad Obregón.,Viajaré a Ciudad Obregón en las próximas vacaciones.,Viajaré a Ciudad Obregón en las próximas vacaciones.
 378,IGLESIA NOSOTROS-DE-DOS DECIR AMÉN,En la iglesia decimos amén.,Nosotros decimos amén en la iglesia.,Nosotros decimos amén en la iglesia.
 292,AYER NOCHE METRO CAOS,Anoche el metro era un caos.,Anoche hubo caos en el metro.,Anoche hubo caos en el metro.
 605,LUGAR FABRICA SABRITAS HAY TRABAJO PARA PERSONAS,En la fábrica de Sabritas buscan personal para trabajar.,En la fábrica de Sabritas hay trabajo para las personas.,En la fábrica de Sabritas hay trabajo para las personas.
