@@ -88,9 +88,12 @@ def run_submission():
         print(f"  [TEST] {i+1}/{len(test_data)} ({elapsed:.0f}s) | SPA: {spa[:40]}... → {pred[:50]}")
 
     os.makedirs(config.SUBMISSIONS_DIR, exist_ok=True)
-    filepath = os.path.join(config.SUBMISSIONS_DIR, "UTB_MANYSHOT_SPA2MSLG.txt")
-    with open(filepath, "w", encoding="utf-8") as f:
-        for pred in predictions: f.write(f'"{pred}"\n')
+    fname = f"{config.TEAM_NAME}_{config.SOLUTION_NAME}_{config.SUBTASK}.txt"
+    filepath = os.path.join(config.SUBMISSIONS_DIR, fname)
+    with open(filepath, "wb") as f:
+        for pred in predictions:
+            line = f'"{pred.replace(chr(10), " ").strip()}"\n'
+            f.write(line.encode("utf-8"))
 
     print(f"\nSubmission oficial guardado en: {filepath}")
 
